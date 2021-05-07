@@ -100,7 +100,7 @@ void Game::UpdateScreen() {
   if (HasLost()) {
     gameScreen_.DrawRectangle(0, 0, gameScreen_.GetWidth(),
                               gameScreen_.GetHeight(), lightBlue);
-    std::string endGameMsg("GAME OVER\nYOUR SCORE IS: " +
+    std::string endGameMsg("GAME OVER\nSCORE: " +
                            std::to_string(score_));
     gameScreen_.DrawText(gameScreen_.GetWidth() / 5,
                          gameScreen_.GetHeight() / 3, endGameMsg, 75, black);
@@ -193,6 +193,7 @@ void Game::RemoveInactive() {
 // the Opponent::LaunchProjectile() function and will add the non-nullptr
 // projecties into the <OpponenentProjectile> vector
 void Game::LaunchProjectiles() {
+  std::cout << "2" << std::endl;
   for (int i = 0; i < enemies_.size(); i++) {
     if (enemies_[i]->GetIsActive()) {
       std::unique_ptr<OpponentProjectile> oProj =
