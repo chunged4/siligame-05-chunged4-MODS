@@ -11,6 +11,8 @@ class Player : public GameElement {
   // Getters/setters
   int GetToggle() const;
   void SetToggle(int drawToggle);
+  int GetCoolDown() const;
+  void SetCoolDown(int coolDown);
   //  Member Functions
   void Draw(graphics::Image &image) override;
   void DrawBackwords(graphics::Image &image);
@@ -18,6 +20,7 @@ class Player : public GameElement {
 
  private:
   int drawToggle_;
+  int coolDown_;
 };
 
 class PlayerProjectile : public GameElement {
@@ -25,11 +28,15 @@ class PlayerProjectile : public GameElement {
   //  Constructors
   PlayerProjectile();
   PlayerProjectile(int x, int y);
+  // getters/setters
+  int GetMoveSpeed() const;
+  void SetMoveSpeed(int moveSpeed);
   //  Member Functions
   void Draw(graphics::Image &image) override;
   void Move(const graphics::Image &image) override;
 
  private:
+  int moveSpeed_;
 };
 
 #endif

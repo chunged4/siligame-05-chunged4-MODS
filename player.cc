@@ -7,6 +7,8 @@ Player::Player(int x, int y) : GameElement(x, y, 50, 50), drawToggle_(1) {}
 // getters/setters
 int Player::GetToggle() const { return drawToggle_; }
 void Player::SetToggle(int drawToggle) { drawToggle_ = drawToggle; }
+int Player::GetCoolDown() const { return coolDown_; }
+void Player::SetCoolDown(int coolDown) { coolDown_ = coolDown; }
 
 // Player member functions
 void Player::Draw(graphics::Image &image) {
@@ -39,6 +41,10 @@ void Player::Move(const graphics::Image &image) {}
 // PlayerProjectile constructors
 PlayerProjectile::PlayerProjectile() : PlayerProjectile(0, 0) {}
 PlayerProjectile::PlayerProjectile(int x, int y) : GameElement(x, y, 10, 11) {}
+
+// playerprojectile getters/setters
+int PlayerProjectile::GetMoveSpeed() const { return moveSpeed_; }
+void PlayerProjectile::SetMoveSpeed(int moveSpeed) { moveSpeed_ = moveSpeed; }
 
 // PlayerProjectile member functions
 void PlayerProjectile::Draw(graphics::Image &image) {

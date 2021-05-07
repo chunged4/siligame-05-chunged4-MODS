@@ -1,5 +1,5 @@
 create opponents at the edges of the screen --done--
-have different game states
+have different game states --done--
 power ups
     double shoots
     invincibility
