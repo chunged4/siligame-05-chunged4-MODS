@@ -56,7 +56,7 @@ void Game::CreateOpponents() {
 // gameScreen_
 void Game::Init() {
   int xPos = gameScreen_.GetWidth() / 2;
-  int yPos = gameScreen_.GetWidth() * .75;
+  int yPos = gameScreen_.GetHeight() * .75;
   thePlayer_.SetX(xPos);
   thePlayer_.SetY(yPos);
   gameScreen_.AddMouseEventListener(*this);
@@ -231,7 +231,7 @@ void Game::OnMouseEvent(const graphics::MouseEvent &event) {
     if (event.GetMouseAction() == graphics::MouseAction::kPressed) {
       startGame_ = false;
       int xPos = gameScreen_.GetWidth() / 2;
-      int yPos = gameScreen_.GetWidth() * .75;
+      int yPos = gameScreen_.GetHeight() * .75;
       thePlayer_.SetX(xPos);
       thePlayer_.SetY(yPos);
       thePlayer_.Draw(gameScreen_);
@@ -282,7 +282,7 @@ void Game::OnMouseEvent(const graphics::MouseEvent &event) {
       lost_ = false;
       score_ = 0;
       int xPos = gameScreen_.GetWidth() / 2;
-      int yPos = gameScreen_.GetWidth() * .75;
+      int yPos = gameScreen_.GetHeight() * .75;
       thePlayer_.SetX(xPos);
       thePlayer_.SetY(yPos);
       thePlayer_.SetIsActive(true);
