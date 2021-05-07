@@ -1,5 +1,6 @@
 #include <iostream>
 #include <memory>
+#include <math.h>
 
 #include "cpputils/graphics/image.h"
 

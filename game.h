@@ -6,6 +6,7 @@
 #include "player.h"
 
 const graphics::Color lightBlue(173, 216, 230);
+const graphics::Color black(0, 0, 0);
 
 #ifndef GAME_H
 #define GAME_H
@@ -46,6 +47,7 @@ class Game : public graphics::AnimationEventListener,
   Player thePlayer_;
   int score_;
   bool lost_;
+  bool startGame_;
 };
 
 #endif

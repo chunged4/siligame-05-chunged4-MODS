@@ -2,7 +2,7 @@
 
 // constructors
 Game::Game() : Game(800, 600) {}
-Game::Game(int width, int height) : score_(0), lost_(false) {
+Game::Game(int width, int height) : score_(0), lost_(false), startGame_(true) {
   gameScreen_.Initialize(width, height);
 }
 
@@ -70,40 +70,47 @@ void Game::Init() {
 // oppoenent and player depending on the toggle that determines which way they
 // are facing
 void Game::UpdateScreen() {
-  graphics::Color black(0, 0, 0);
-  gameScreen_.DrawRectangle(0, 0, gameScreen_.GetWidth(),
-                            gameScreen_.GetHeight(), lightBlue);
-  std::string scoreMsg("Score: " + std::to_string(score_));
-  gameScreen_.DrawText(0, 0, scoreMsg, 30, black);
-  for (int i = 0; i < enemies_.size(); i++) {
-    if (enemies_[i]->GetIsActive() && enemies_[i]->GetToggle() == 1) {
-      enemies_[i]->Draw(gameScreen_);
-    } else if (enemies_[i]->GetIsActive() && enemies_[i]->GetToggle() == 2) {
-      enemies_[i]->DrawBackwords(gameScreen_);
+    gameScreen_.DrawRectangle(0, 0, gameScreen_.GetWidth(),
+                              gameScreen_.GetHeight(), lightBlue);
+  if (startGame_) {
+    std::string startMsg("Click the screen to start!");
+    gameScreen_.DrawText(gameScreen_.GetWidth() / 3, gameScreen_.GetHeight() / 3, startMsg, 75, black);
+  } else {
+    std::string scoreMsg("Score: " + std::to_string(score_));
+    gameScreen_.DrawText(0, 0, scoreMsg, 30, black);
+    for (int i = 0; i < enemies_.size(); i++) {
+      if (enemies_[i]->GetIsActive() && enemies_[i]->GetToggle() == 1) {
+        enemies_[i]->Draw(gameScreen_);
+      } else if (enemies_[i]->GetIsActive() && enemies_[i]->GetToggle() == 2) {
+        enemies_[i]->DrawBackwords(gameScreen_);
+      }
     }
-  }
-  for (int i = 0; i < balls_.size(); i++) {
-    if (balls_[i]->GetIsActive()) {
-      balls_[i]->Draw(gameScreen_);
+    for (int i = 0; i < balls_.size(); i++) {
+      if (balls_[i]->GetIsActive()) {
+        balls_[i]->Draw(gameScreen_);
+      }
     }
-  }
-  for (int i = 0; i < lBolts_.size(); i++) {
-    if (lBolts_[i]->GetIsActive()) {
-      lBolts_[i]->Draw(gameScreen_);
+    for (int i = 0; i < lBolts_.size(); i++) {
+      if (lBolts_[i]->GetIsActive()) {
+        lBolts_[i]->Draw(gameScreen_);
+      }
     }
-  }
-  if (thePlayer_.GetIsActive() && thePlayer_.GetToggle() == 1) {
-    thePlayer_.Draw(gameScreen_);
-  } else if (thePlayer_.GetIsActive() && thePlayer_.GetToggle() == 2) {
-    thePlayer_.DrawBackwords(gameScreen_);
+    if (thePlayer_.GetIsActive() && thePlayer_.GetToggle() == 1) {
+      thePlayer_.Draw(gameScreen_);
+    } else if (thePlayer_.GetIsActive() && thePlayer_.GetToggle() == 2) {
+      thePlayer_.DrawBackwords(gameScreen_);
+    }
   }
   if (HasLost()) {
     gameScreen_.DrawRectangle(0, 0, gameScreen_.GetWidth(),
                               gameScreen_.GetHeight(), lightBlue);
     std::string endGameMsg("GAME OVER\nSCORE: " +
                            std::to_string(score_));
-    gameScreen_.DrawText(gameScreen_.GetWidth() / 3,
-                         gameScreen_.GetHeight() / 3, endGameMsg, 75, black);
+    gameScreen_.DrawText(gameScreen_.GetWidth() / 4,
+                         gameScreen_.GetHeight() / 4, endGameMsg, 75, black);
+    gameScreen_.DrawText(gameScreen_.GetWidth() / 4,
+                         gameScreen_.GetHeight() / 2, "Click to play again!", 55, black);
+    //  some opponent figure 8 angular drawing
     thePlayer_.SetIsActive(false);
     for (int i = 0; i < enemies_.size(); i++) {
       enemies_[i]->SetIsActive(false);
@@ -199,9 +206,6 @@ void Game::LaunchProjectiles() {
           enemies_[i]->LaunchProjectile();
       if (oProj != nullptr) {
         balls_.push_back(std::move(oProj));
-        std::cout << "pushing" << std::endl;
-      } else {
-        std::cout << "not" << std::endl;
       }
     }
   }
@@ -223,46 +227,54 @@ void Game::OnAnimationStep() {
 // and and the function uses the event to update the player's movement using the
 // mouse coordinates and the player's actions using the mouse's key presses
 void Game::OnMouseEvent(const graphics::MouseEvent &event) {
-  if (event.GetX() > 0 || event.GetX() < gameScreen_.GetWidth() ||
+  if (startGame_) {
+    if (event.GetMouseAction() == graphics::MouseAction::kPressed) {
+      startGame_ = false;
+    }
+  } else if (!lost_) {
+    if (event.GetX() > 0 || event.GetX() < gameScreen_.GetWidth() ||
       event.GetY() > 0 || event.GetY() < gameScreen_.GetHeight()) {
-    if (event.GetMouseAction() == graphics::MouseAction::kMoved ||
-        event.GetMouseAction() == graphics::MouseAction::kDragged) {
-      if (event.GetX() - (thePlayer_.GetX() + thePlayer_.GetWidth() / 2) > 0) {
-        thePlayer_.SetToggle(2);
-      } else if (event.GetX() -
-                     (thePlayer_.GetX() + thePlayer_.GetWidth() / 2) <
-                 0) {
-        thePlayer_.SetToggle(1);
-      }
-      thePlayer_.SetX(event.GetX() - (thePlayer_.GetWidth() / 2));
-      thePlayer_.SetY(event.GetY() - (thePlayer_.GetHeight() / 2));
-      if (thePlayer_.IsOutOfBounds(gameScreen_)) {
-        if (thePlayer_.GetX() < 0) {
-          thePlayer_.SetX(event.GetX());
+      if (event.GetMouseAction() == graphics::MouseAction::kMoved ||
+          event.GetMouseAction() == graphics::MouseAction::kDragged) {
+        if (event.GetX() - (thePlayer_.GetX() + thePlayer_.GetWidth() / 2) > 0) {
+          thePlayer_.SetToggle(2);
+        } else if (event.GetX() - (thePlayer_.GetX() + thePlayer_.GetWidth() / 2) < 0) {
+            thePlayer_.SetToggle(1);
         }
-        if (thePlayer_.GetY() < 0) {
-          thePlayer_.SetY(event.GetY());
-        }
-        if (thePlayer_.GetX() + thePlayer_.GetWidth() >
-            gameScreen_.GetWidth()) {
-          thePlayer_.SetX(event.GetX() - thePlayer_.GetWidth());
-        }
-        if (thePlayer_.GetY() + thePlayer_.GetHeight() >
-            gameScreen_.GetHeight()) {
-          thePlayer_.SetY(event.GetY() - thePlayer_.GetHeight());
+        thePlayer_.SetX(event.GetX() - (thePlayer_.GetWidth() / 2));
+        thePlayer_.SetY(event.GetY() - (thePlayer_.GetHeight() / 2));
+        if (thePlayer_.IsOutOfBounds(gameScreen_)) {
+          if (thePlayer_.GetX() < 0) {
+            thePlayer_.SetX(event.GetX());
+          }
+          if (thePlayer_.GetY() < 0) {
+            thePlayer_.SetY(event.GetY());
+          }
+          if (thePlayer_.GetX() + thePlayer_.GetWidth() >
+              gameScreen_.GetWidth()) {
+            thePlayer_.SetX(event.GetX() - thePlayer_.GetWidth());
+          }
+          if (thePlayer_.GetY() + thePlayer_.GetHeight() >
+              gameScreen_.GetHeight()) {
+            thePlayer_.SetY(event.GetY() - thePlayer_.GetHeight());
+          }
         }
       }
     }
-  }
-  if ((event.GetMouseAction() == graphics::MouseAction::kPressed &&
-       event.GetMouseAction() != graphics::MouseAction::kReleased) ||
-      event.GetMouseAction() == graphics::MouseAction::kDragged) {
-    if (thePlayer_.GetIsActive()) {
-      std::unique_ptr<PlayerProjectile> bolt =
-          std::make_unique<PlayerProjectile>();
-      bolt->SetX(thePlayer_.GetWidth() / 2 + thePlayer_.GetX());
-      bolt->SetY(thePlayer_.GetY());
-      lBolts_.push_back(std::move(bolt));
+    if ((event.GetMouseAction() == graphics::MouseAction::kPressed &&
+        event.GetMouseAction() != graphics::MouseAction::kReleased) ||
+        event.GetMouseAction() == graphics::MouseAction::kDragged) {
+      if (thePlayer_.GetIsActive()) {
+        std::unique_ptr<PlayerProjectile> bolt =
+            std::make_unique<PlayerProjectile>();
+        bolt->SetX(thePlayer_.GetWidth() / 2 + thePlayer_.GetX());
+        bolt->SetY(thePlayer_.GetY());
+        lBolts_.push_back(std::move(bolt));
+      }
+    }
+  } else if (lost_ && !startGame_) {
+    if (event.GetMouseAction() == graphics::MouseAction::kPressed) {
+      lost_ = false;
     }
   }
 }
