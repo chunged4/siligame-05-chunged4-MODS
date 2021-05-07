@@ -1,0 +1,9 @@
+create opponents at the edge of the screen --done--
+have different game states
+power ups
+    double shoots
+    invincibility
+    invisibility
+evolving?
+shoottimer for player no spam
+
