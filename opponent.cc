@@ -92,7 +92,6 @@ void Opponent::Move(const graphics::Image &image) {
   }
 }
 std::unique_ptr<OpponentProjectile> Opponent::LaunchProjectile() {
-  std::cout << "1" << std::endl;
   shootCounter_++;
   std::unique_ptr<OpponentProjectile> oProj_ptr =
       std::make_unique<OpponentProjectile>();

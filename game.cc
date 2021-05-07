@@ -83,6 +83,7 @@ void Game::UpdateScreen() {
     }
   }
   for (int i = 0; i < balls_.size(); i++) {
+    std::cout << balls_[i]->GetIsActive() << std::endl;
     if (balls_[i]->GetIsActive()) {
       balls_[i]->Draw(gameScreen_);
     }
@@ -193,7 +194,6 @@ void Game::RemoveInactive() {
 // the Opponent::LaunchProjectile() function and will add the non-nullptr
 // projecties into the <OpponenentProjectile> vector
 void Game::LaunchProjectiles() {
-  std::cout << "2" << std::endl;
   for (int i = 0; i < enemies_.size(); i++) {
     if (enemies_[i]->GetIsActive()) {
       std::unique_ptr<OpponentProjectile> oProj =
