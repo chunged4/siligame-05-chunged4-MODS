@@ -231,7 +231,6 @@ void Game::OnMouseEvent(const graphics::MouseEvent &event) {
     if (event.GetMouseAction() == graphics::MouseAction::kPressed) {
       startGame_ = false;
       ResetGame();
-      Init();
     }
   } else if (!lost_) {
     if (event.GetX() > 0 || event.GetX() < gameScreen_.GetWidth() ||
@@ -277,7 +276,6 @@ void Game::OnMouseEvent(const graphics::MouseEvent &event) {
   } else if (lost_ && !startGame_) {
     if (event.GetMouseAction() == graphics::MouseAction::kPressed) {
       ResetGame();
-      Init();
     }
   }
 }
@@ -285,4 +283,8 @@ void Game::ResetGame() {
   lost_ = false;
   score_ = 0;
   thePlayer_.SetCoolDown(0);
+  int xPos = gameScreen_.GetWidth() / 2;
+  int yPos = gameScreen_.GetHeight() * .75;
+  thePlayer_.SetX(xPos);
+  thePlayer_.SetY(yPos);
 }
