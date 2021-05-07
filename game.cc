@@ -279,7 +279,11 @@ void Game::OnMouseEvent(const graphics::MouseEvent &event) {
   } else if (lost_ && !startGame_) {
     if (event.GetMouseAction() == graphics::MouseAction::kPressed) {
       lost_ = false;
-      Init();
+      int xPos = gameScreen_.GetWidth() / 2;
+      int yPos = gameScreen_.GetWidth() * .75;
+      thePlayer_.SetX(xPos);
+      thePlayer_.SetY(yPos);
+      thePlayer_.SetIsActive(true);
     }
   }
 }
