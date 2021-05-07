@@ -287,4 +287,6 @@ void Game::ResetGame() {
   int yPos = gameScreen_.GetHeight() * .75;
   thePlayer_.SetX(xPos);
   thePlayer_.SetY(yPos);
+  thePlayer_.SetIsActive(true);
+  thePlayer_.Draw(gameScreen_);
 }
