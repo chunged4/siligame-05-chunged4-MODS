@@ -83,7 +83,6 @@ void Game::UpdateScreen() {
     }
   }
   for (int i = 0; i < balls_.size(); i++) {
-    std::cout << balls_[i]->GetIsActive() << std::endl;
     if (balls_[i]->GetIsActive()) {
       balls_[i]->Draw(gameScreen_);
     }
@@ -103,7 +102,7 @@ void Game::UpdateScreen() {
                               gameScreen_.GetHeight(), lightBlue);
     std::string endGameMsg("GAME OVER\nSCORE: " +
                            std::to_string(score_));
-    gameScreen_.DrawText(gameScreen_.GetWidth() / 5,
+    gameScreen_.DrawText(gameScreen_.GetWidth() / 3,
                          gameScreen_.GetHeight() / 3, endGameMsg, 75, black);
     thePlayer_.SetIsActive(false);
     for (int i = 0; i < enemies_.size(); i++) {
