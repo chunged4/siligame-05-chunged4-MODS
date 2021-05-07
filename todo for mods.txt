@@ -1,4 +1,4 @@
-create opponents at the edge of the screen --done--
+create opponents at the edges of the screen --done--
 have different game states
 power ups
     double shoots
@@ -6,4 +6,4 @@ power ups
     invisibility
 evolving?
 shoottimer for player no spam
-
+opponents track player coordinates to shoot towards
