@@ -199,6 +199,9 @@ void Game::LaunchProjectiles() {
           enemies_[i]->LaunchProjectile();
       if (oProj != nullptr) {
         balls_.push_back(std::move(oProj));
+        std::cout << "pushing" << std::endl;
+      } else {
+        std::cout << "not" << std::endl;
       }
     }
   }
