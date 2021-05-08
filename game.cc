@@ -76,13 +76,15 @@ void Game::UpdateScreen() {
   if (startGame_) {
     std::string startMsg("SILIG  ME");
     gameScreen_.DrawText(gameScreen_.GetWidth() / 3, gameScreen_.GetHeight() / 6, startMsg, 75, black);
-    thePlayer_.SetX(412);
+    thePlayer_.SetX(410);
     thePlayer_.SetY(110);
     thePlayer_.Draw(gameScreen_);
     int randNum = rand () % 60 + 30;
     // if () {
 
     // }
+    gameScreen_.DrawRectangle(170, gameScreen_.GetHeight() * 0.67, 200 , 200, 0, 0, 0);
+    gameScreen_.DrawRectangle(470, gameScreen_.GetHeight() * 0.67, 200 , 200, 0, 0, 0);
   } else {
     std::string scoreMsg("Score: " + std::to_string(score_));
     gameScreen_.DrawText(0, 0, scoreMsg, 30, black);
