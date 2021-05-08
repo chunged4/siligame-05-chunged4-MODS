@@ -73,7 +73,7 @@ void Game::UpdateScreen() {
   gameScreen_.DrawRectangle(0, 0, gameScreen_.GetWidth(),
                               gameScreen_.GetHeight(), lightBlue);
   if (startGame_) {
-    gameScreen_.Load("startBackground.bmp");
+    // gameScreen_.Load("startBackground.bmp");
     std::string startMsg("SILIG  ME");
     gameScreen_.DrawText(gameScreen_.GetWidth() / 3, gameScreen_.GetHeight() / 6, startMsg, 75, black);
     thePlayer_.SetX(gameScreen_.GetWidth() / 2 + 10);
