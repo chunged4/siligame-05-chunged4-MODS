@@ -83,8 +83,8 @@ void Game::UpdateScreen() {
     // if () {
 
     // }
-    gameScreen_.DrawRectangle(170, gameScreen_.GetHeight() * 0.67, 200 , 200, 0, 0, 0);
-    gameScreen_.DrawRectangle(470, gameScreen_.GetHeight() * 0.67, 200 , 200, 0, 0, 0);
+    gameScreen_.DrawRectangle(170, gameScreen_.GetHeight() * 0.5, 200 , 80, 0, 0, 0);
+    gameScreen_.DrawRectangle(470, gameScreen_.GetHeight() * 0.5, 200 , 80, 0, 0, 0);
   } else {
     std::string scoreMsg("Score: " + std::to_string(score_));
     gameScreen_.DrawText(0, 0, scoreMsg, 30, black);
