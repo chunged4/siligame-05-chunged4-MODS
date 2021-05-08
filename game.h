@@ -7,7 +7,7 @@
 
 const graphics::Color lightBlue(173, 216, 230);
 const graphics::Color black(0, 0, 0);
-const graphics::Color lightGreen(0, 179, 0);
+const graphics::Color lightGreen(20, 224, 20);
 const graphics::Color red(255, 0, 0);
 const graphics::Color blue(0, 0, 255);
 
