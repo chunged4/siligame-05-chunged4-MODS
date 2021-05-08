@@ -73,7 +73,7 @@ void Game::UpdateScreen() {
   gameScreen_.DrawRectangle(0, 0, gameScreen_.GetWidth(),
                               gameScreen_.GetHeight(), lightBlue);
   if (startGame_) {
-    // gameScreen_.Load("startBackground.bmp");
+    gameScreen_.Load("startBackground.bmp");
     std::string startMsg("SILIG  ME");
     gameScreen_.DrawText(gameScreen_.GetWidth() / 3, gameScreen_.GetHeight() / 6, startMsg, 75, black);
     thePlayer_.SetX(gameScreen_.GetWidth() / 2 + 10);
@@ -86,7 +86,7 @@ void Game::UpdateScreen() {
     gameScreen_.DrawRectangle(170, gameScreen_.GetHeight() * 0.5, 200 , 80, lightGreen);
     gameScreen_.DrawText(200, gameScreen_.GetHeight() * 0.5 + 5, "PLAY", 70, black);
     gameScreen_.DrawRectangle(470, gameScreen_.GetHeight() * 0.5, 200 , 80, red);
-    gameScreen_.DrawText(500, gameScreen_.GetHeight() * 0.5 + 5, "QUIT", 70, black);
+    gameScreen_.DrawText(510, gameScreen_.GetHeight() * 0.5 + 5, "QUIT", 70, black);
   } else {
     // gameScreen_.Load();
     std::string scoreMsg("Score: " + std::to_string(score_));
