@@ -70,13 +70,19 @@ void Game::Init() {
 // oppoenent and player depending on the toggle that determines which way they
 // are facing
 void Game::UpdateScreen() {
-    gameScreen_.DrawRectangle(0, 0, gameScreen_.GetWidth(),
+  // gameScreen_.Load("");
+  gameScreen_.DrawRectangle(0, 0, gameScreen_.GetWidth(),
                               gameScreen_.GetHeight(), lightBlue);
   if (startGame_) {
     std::string startMsg("SILIG  ME");
     gameScreen_.DrawText(gameScreen_.GetWidth() / 3, gameScreen_.GetHeight() / 6, startMsg, 75, black);
-    graphics::Image player(320, 115);
-    player.Load("pikachu.bmp");
+    thePlayer_.SetX(320);
+    thePlayer_.SetY(115);
+    thePlayer_.Draw(gameScreen_);
+    int randNum = rand () % 30 + 30;
+    // if () {
+
+    // }
   } else {
     std::string scoreMsg("Score: " + std::to_string(score_));
     gameScreen_.DrawText(0, 0, scoreMsg, 30, black);
@@ -104,8 +110,8 @@ void Game::UpdateScreen() {
     }
   }
   if (HasLost()) {
-    gameScreen_.DrawRectangle(0, 0, gameScreen_.GetWidth(),
-                              gameScreen_.GetHeight(), lightBlue);
+    // gameScreen_.DrawRectangle(0, 0, gameScreen_.GetWidth(),
+                              // gameScreen_.GetHeight(), lightBlue);
     std::string endGameMsg("GAME OVER\nSCORE: " +
                            std::to_string(score_));
     gameScreen_.DrawText(gameScreen_.GetWidth() / 4,
