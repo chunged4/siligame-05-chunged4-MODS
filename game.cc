@@ -75,7 +75,8 @@ void Game::UpdateScreen() {
   if (startGame_) {
     std::string startMsg("SILIG  ME");
     gameScreen_.DrawText(gameScreen_.GetWidth() / 3, gameScreen_.GetHeight() / 6, startMsg, 75, black);
-
+    graphics::Image player(320, 115);
+    player.Load("pikachu.bmp");
   } else {
     std::string scoreMsg("Score: " + std::to_string(score_));
     gameScreen_.DrawText(0, 0, scoreMsg, 30, black);
@@ -223,6 +224,7 @@ void Game::OnAnimationStep() {
   FilterIntersections();
   RemoveInactive();
   UpdateScreen();
+  timer_++;
   gameScreen_.Flush();
 }
 // OnMouseEvent() is a listener that takes in input from the mouse as an event
