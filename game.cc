@@ -73,8 +73,8 @@ void Game::UpdateScreen() {
     gameScreen_.DrawRectangle(0, 0, gameScreen_.GetWidth(),
                               gameScreen_.GetHeight(), lightBlue);
   if (startGame_) {
-    std::string startMsg("SILIG   ME");
-    gameScreen_.DrawText(150, 150, startMsg, 75, black);
+    std::string startMsg("SILIG  ME");
+    gameScreen_.DrawText(gameScreen_.GetWidth() / 4, gameScreen_.GetHeight() / 3, startMsg, 75, black);
 
   } else {
     std::string scoreMsg("Score: " + std::to_string(score_));
