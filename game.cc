@@ -70,10 +70,10 @@ void Game::Init() {
 // oppoenent and player depending on the toggle that determines which way they
 // are facing
 void Game::UpdateScreen() {
-  // gameScreen_.Load("");
   gameScreen_.DrawRectangle(0, 0, gameScreen_.GetWidth(),
                               gameScreen_.GetHeight(), lightBlue);
   if (startGame_) {
+    gameScreen_.Load("startBackground.bmp");
     std::string startMsg("SILIG  ME");
     gameScreen_.DrawText(gameScreen_.GetWidth() / 3, gameScreen_.GetHeight() / 6, startMsg, 75, black);
     thePlayer_.SetX(gameScreen_.GetWidth() / 2 + 10);
@@ -83,11 +83,12 @@ void Game::UpdateScreen() {
     // if () {
 
     // }
-    gameScreen_.DrawRectangle(170, gameScreen_.GetHeight() * 0.5, 200 , 80, green);
+    gameScreen_.DrawRectangle(170, gameScreen_.GetHeight() * 0.5, 200 , 80, lightGreen);
     gameScreen_.DrawText(175, gameScreen_.GetHeight() * 0.5 + 5, "PLAY", 70, black);
     gameScreen_.DrawRectangle(470, gameScreen_.GetHeight() * 0.5, 200 , 80, red);
     gameScreen_.DrawText(475, gameScreen_.GetHeight() * 0.5 + 5, "QUIT", 70, black);
   } else {
+    // gameScreen_.Load();
     std::string scoreMsg("Score: " + std::to_string(score_));
     gameScreen_.DrawText(0, 0, scoreMsg, 30, black);
     for (int i = 0; i < enemies_.size(); i++) {
@@ -227,7 +228,7 @@ void Game::LaunchProjectiles() {
 void Game::OnAnimationStep() {
   // fix using game state ifs
   if (!(HasLost() && !startGame_)) {
-    if (enemies_.size()) {
+    if (enemies_.size() == 0) {
       CreateOpponents();
     }
     MoveGameElements();
