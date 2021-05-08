@@ -78,15 +78,14 @@ void Game::UpdateScreen() {
     gameScreen_.DrawText(gameScreen_.GetWidth() / 3, gameScreen_.GetHeight() / 6, startMsg, 75, black);
     thePlayer_.SetX(gameScreen_.GetWidth() / 2 + 8);
     thePlayer_.SetY(gameScreen_.GetHeight() / 6 + 10);
-    int rNum = rand() % 100;
     if (thePlayer_.GetToggle() == 1) {
       thePlayer_.DrawBackwords(gameScreen_);
-      if (timer_ % rNum == 0) {
+      if (timer_ % 15 == 0) {
         thePlayer_.SetToggle(2);
       }
     } else {
       thePlayer_.Draw(gameScreen_);
-      if (timer_ % rNum == 0) {
+      if (timer_ % 15 == 0) {
         thePlayer_.SetToggle(1);
       }
     }
