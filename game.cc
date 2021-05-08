@@ -76,10 +76,10 @@ void Game::UpdateScreen() {
   if (startGame_) {
     std::string startMsg("SILIG  ME");
     gameScreen_.DrawText(gameScreen_.GetWidth() / 3, gameScreen_.GetHeight() / 6, startMsg, 75, black);
-    thePlayer_.SetX(320);
+    thePlayer_.SetX(400);
     thePlayer_.SetY(115);
     thePlayer_.Draw(gameScreen_);
-    int randNum = rand () % 30 + 30;
+    int randNum = rand () % 60 + 30;
     // if () {
 
     // }
@@ -110,8 +110,8 @@ void Game::UpdateScreen() {
     }
   }
   if (HasLost()) {
-    // gameScreen_.DrawRectangle(0, 0, gameScreen_.GetWidth(),
-                              // gameScreen_.GetHeight(), lightBlue);
+    gameScreen_.DrawRectangle(0, 0, gameScreen_.GetWidth(),
+                              gameScreen_.GetHeight(), lightBlue);
     std::string endGameMsg("GAME OVER\nSCORE: " +
                            std::to_string(score_));
     gameScreen_.DrawText(gameScreen_.GetWidth() / 4,
@@ -222,13 +222,15 @@ void Game::LaunchProjectiles() {
 // run smoothly
 void Game::OnAnimationStep() {
   // fix using game state ifs
-  if (enemies_.size() == 0 && !(HasLost()) && !startGame_) {
-    CreateOpponents();
+  if (!(HasLost() && !startGame_)) {
+    if (enemies_.size()) {
+      CreateOpponents();
+    }
+    MoveGameElements();
+    LaunchProjectiles();
+    FilterIntersections();
+    RemoveInactive();
   }
-  MoveGameElements();
-  LaunchProjectiles();
-  FilterIntersections();
-  RemoveInactive();
   UpdateScreen();
   timer_++;
   gameScreen_.Flush();
