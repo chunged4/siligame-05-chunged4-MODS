@@ -84,9 +84,9 @@ void Game::UpdateScreen() {
 
     // }
     gameScreen_.DrawRectangle(170, gameScreen_.GetHeight() * 0.5, 200 , 80, lightGreen);
-    gameScreen_.DrawText(175, gameScreen_.GetHeight() * 0.5 + 5, "PLAY", 70, black);
+    gameScreen_.DrawText(190, gameScreen_.GetHeight() * 0.5 + 5, "PLAY", 70, black);
     gameScreen_.DrawRectangle(470, gameScreen_.GetHeight() * 0.5, 200 , 80, red);
-    gameScreen_.DrawText(475, gameScreen_.GetHeight() * 0.5 + 5, "QUIT", 70, black);
+    gameScreen_.DrawText(490, gameScreen_.GetHeight() * 0.5 + 5, "QUIT", 70, black);
   } else {
     // gameScreen_.Load();
     std::string scoreMsg("Score: " + std::to_string(score_));
@@ -227,7 +227,7 @@ void Game::LaunchProjectiles() {
 // run smoothly
 void Game::OnAnimationStep() {
   // fix using game state ifs
-  if (!(HasLost() && !startGame_)) {
+  if (!(HasLost()) && !startGame_) {
     if (enemies_.size() == 0) {
       CreateOpponents();
     }
