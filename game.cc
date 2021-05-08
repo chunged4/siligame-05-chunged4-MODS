@@ -76,8 +76,8 @@ void Game::UpdateScreen() {
   if (startGame_) {
     std::string startMsg("SILIG  ME");
     gameScreen_.DrawText(gameScreen_.GetWidth() / 3, gameScreen_.GetHeight() / 6, startMsg, 75, black);
-    thePlayer_.SetX(400);
-    thePlayer_.SetY(115);
+    thePlayer_.SetX(412);
+    thePlayer_.SetY(110);
     thePlayer_.Draw(gameScreen_);
     int randNum = rand () % 60 + 30;
     // if () {
