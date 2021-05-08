@@ -73,8 +73,8 @@ void Game::UpdateScreen() {
     gameScreen_.DrawRectangle(0, 0, gameScreen_.GetWidth(),
                               gameScreen_.GetHeight(), lightBlue);
   if (startGame_) {
-    std::string startMsg("Click the screen to start!");
-    gameScreen_.DrawText(gameScreen_.GetWidth() / 3, gameScreen_.GetHeight() / 3, startMsg, 75, black);
+    std::string startMsg("SILIG   ME");
+    gameScreen_.DrawText(150, 150, startMsg, 75, black);
 
   } else {
     std::string scoreMsg("Score: " + std::to_string(score_));
@@ -214,6 +214,7 @@ void Game::LaunchProjectiles() {
 // OnAnimationStep() is a listener run every millisecond, making the animations
 // run smoothly
 void Game::OnAnimationStep() {
+  // fix using game state ifs
   if (enemies_.size() == 0 && !(HasLost()) && !startGame_) {
     CreateOpponents();
   }
@@ -283,11 +284,12 @@ void Game::OnMouseEvent(const graphics::MouseEvent &event) {
 void Game::ResetGame() { 
   lost_ = false;
   score_ = 0;
+  timer_ = 0;
   thePlayer_.SetCoolDown(0);
   int xPos = gameScreen_.GetWidth() / 2;
   int yPos = gameScreen_.GetHeight() * .75;
   thePlayer_.SetX(xPos);
   thePlayer_.SetY(yPos);
-  thePlayer_.SetIsActive(true);
+  thePlayer_.SetIsActive(!lost_);
   thePlayer_.Draw(gameScreen_);
 }

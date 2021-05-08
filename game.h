@@ -49,6 +49,7 @@ class Game : public graphics::AnimationEventListener,
   int score_;
   bool lost_;
   bool startGame_;
+  int timer_;
 };
 
 #endif
