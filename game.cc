@@ -79,10 +79,14 @@ void Game::UpdateScreen() {
     thePlayer_.SetX(gameScreen_.GetWidth() / 2 + 10);
     thePlayer_.SetY(gameScreen_.GetHeight() / 6 + 10);
     thePlayer_.Draw(gameScreen_);
-    int randNum = rand () % 60 + 30;
-    // if () {
-
-    // }
+    int randNum = rand () % 100;
+    if (randNum % 7 == 0) {
+      if (thePlayer_.GetToggle() == 1) {
+        thePlayer_.SetToggle(2);
+      } else {
+        thePlayer_.SetToggle(1);
+      }
+    }
     gameScreen_.DrawRectangle(170, gameScreen_.GetHeight() * 0.5, 200 , 80, lightGreen);
     gameScreen_.DrawText(200, gameScreen_.GetHeight() * 0.5 + 5, "PLAY", 70, black);
     gameScreen_.DrawRectangle(470, gameScreen_.GetHeight() * 0.5, 200 , 80, red);
@@ -245,7 +249,11 @@ void Game::OnAnimationStep() {
 // mouse coordinates and the player's actions using the mouse's key presses
 void Game::OnMouseEvent(const graphics::MouseEvent &event) {
   if (startGame_) {
-    if (event.GetMouseAction() == graphics::MouseAction::kPressed) {
+    gameScreen_.DrawRectangle(170, gameScreen_.GetHeight() * 0.5, 200 , 80, lightGreen);
+    if (event.GetMouseAction() == graphics::MouseAction::kPressed
+        && event.GetX() > 170 && event.GetX() < 370
+        && event.GetY() > gameScreen_.GetHeight() * 0.5
+        && event.GetY() < gameScreen_.GetHeight() * 0.5 + 80) {
       startGame_ = false;
       ResetGame();
     }
