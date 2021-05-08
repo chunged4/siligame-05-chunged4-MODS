@@ -75,6 +75,7 @@ void Game::UpdateScreen() {
   if (startGame_) {
     std::string startMsg("Click the screen to start!");
     gameScreen_.DrawText(gameScreen_.GetWidth() / 3, gameScreen_.GetHeight() / 3, startMsg, 75, black);
+
   } else {
     std::string scoreMsg("Score: " + std::to_string(score_));
     gameScreen_.DrawText(0, 0, scoreMsg, 30, black);
@@ -213,7 +214,7 @@ void Game::LaunchProjectiles() {
 // OnAnimationStep() is a listener run every millisecond, making the animations
 // run smoothly
 void Game::OnAnimationStep() {
-  if (enemies_.size() == 0 && !(HasLost())) {
+  if (enemies_.size() == 0 && !(HasLost()) && !startGame_) {
     CreateOpponents();
   }
   MoveGameElements();
