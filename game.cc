@@ -79,7 +79,7 @@ void Game::UpdateScreen() {
     thePlayer_.SetX(gameScreen_.GetWidth() / 2 + 10);
     thePlayer_.SetY(gameScreen_.GetHeight() / 6 + 10);
     int randNum = rand () % 100;
-    if (randNum % 7 == 0) {
+    if (randNum % 5 == 0) {
       if (thePlayer_.GetToggle() == 1) {
         thePlayer_.SetToggle(2);
         thePlayer_.DrawBackwords(gameScreen_);
