@@ -76,17 +76,18 @@ void Game::UpdateScreen() {
     // gameScreen_.Load("startBackground.bmp");
     std::string startMsg("SILIG  ME");
     gameScreen_.DrawText(gameScreen_.GetWidth() / 3, gameScreen_.GetHeight() / 6, startMsg, 75, black);
-    thePlayer_.SetX(gameScreen_.GetWidth() / 2 + 10);
+    thePlayer_.SetX(gameScreen_.GetWidth() / 2 + 8);
     thePlayer_.SetY(gameScreen_.GetHeight() / 6 + 10);
-    thePlayer_.Draw(gameScreen_);
-    int randNum = rand () % 100;
-    if (randNum % 7 == 0) {
-      if (thePlayer_.GetToggle() == 1) {
+    int rNum = rand() % 100;
+    if (thePlayer_.GetToggle() == 1) {
+      thePlayer_.DrawBackwords(gameScreen_);
+      if (timer_ % rNum == 0) {
         thePlayer_.SetToggle(2);
-        thePlayer_.DrawBackwords(gameScreen_);
-      } else {
+      }
+    } else {
+      thePlayer_.Draw(gameScreen_);
+      if (timer_ % rNum == 0) {
         thePlayer_.SetToggle(1);
-        thePlayer_.Draw(gameScreen_);
       }
     }
     gameScreen_.DrawRectangle(170, gameScreen_.GetHeight() * 0.5, 200 , 80, lightGreen);
