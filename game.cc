@@ -110,9 +110,10 @@ void Game::UpdateScreen() {
     gameScreen_.DrawText(gameScreen_.GetWidth() / 4,
                          gameScreen_.GetHeight() / 4, endGameMsg, 75, black);
     gameScreen_.DrawRectangle(170, gameScreen_.GetHeight() * 0.5, 200 , 90, lightGreen);
-    gameScreen_.DrawText(200, gameScreen_.GetHeight() * 0.5 + 10, "PLAY", 70, black);
+    gameScreen_.DrawText(200, gameScreen_.GetHeight() * 0.5 + 20, "PLAY", 70, black);
+    gameScreen_.DrawText(190, gameScreen_.GetHeight() * 0.5 + 30, "AGAIN", 70, black);
     gameScreen_.DrawRectangle(470, gameScreen_.GetHeight() * 0.5, 200 , 90, red);
-    gameScreen_.DrawText(510, gameScreen_.GetHeight() * 0.5 + 10, "QUIT", 70, black);
+    gameScreen_.DrawText(510, gameScreen_.GetHeight() * 0.5 + 20, "QUIT", 70, black);
     if (lastO_.GetIsActive() && lastO_.GetToggle() == 1) {
       lastO_.Draw(gameScreen_);
     } else if (lastO_.GetIsActive() && lastO_.GetToggle() == 2) {
