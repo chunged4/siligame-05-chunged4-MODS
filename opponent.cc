@@ -95,12 +95,12 @@ void Opponent::Move(const graphics::Image &image) {
 }
 void Opponent::eMove(const graphics::Image &image) {
   moveTimer_++;
+  SetToggle(1);
   double scale = 2 / (3 - cos(2 * moveTimer_));
   int x = scale * cos(moveTimer_);
   int y = scale * sin(2 * moveTimer_) / 2;
   SetX(GetX() + xSpeed_ + x);
   SetY(GetY() + ySpeed_ + y);
-  std::cout << moveTimer_ << std::endl;
 }
 std::unique_ptr<OpponentProjectile> Opponent::LaunchProjectile() {
   shootTimer_++;

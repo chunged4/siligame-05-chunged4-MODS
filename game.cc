@@ -71,10 +71,10 @@ void Game::UpdateScreen() {
         thePlayer_.SetToggle(1);
       }
     }
-    gameScreen_.DrawRectangle(170, gameScreen_.GetHeight() * 0.5, 200 , 80, lightGreen);
-    gameScreen_.DrawText(200, gameScreen_.GetHeight() * 0.5 + 5, "PLAY", 70, black);
-    gameScreen_.DrawRectangle(470, gameScreen_.GetHeight() * 0.5, 200 , 80, red);
-    gameScreen_.DrawText(510, gameScreen_.GetHeight() * 0.5 + 5, "QUIT", 70, black);
+    gameScreen_.DrawRectangle(170, gameScreen_.GetHeight() * 0.5, 200 , 90, lightGreen);
+    gameScreen_.DrawText(200, gameScreen_.GetHeight() * 0.5 + 10, "PLAY", 70, black);
+    gameScreen_.DrawRectangle(470, gameScreen_.GetHeight() * 0.5, 200 , 90, red);
+    gameScreen_.DrawText(510, gameScreen_.GetHeight() * 0.5 + 10, "QUIT", 70, black);
   } else {
     // gameScreen_.Load();
     std::string scoreMsg("Score: " + std::to_string(score_));
@@ -109,16 +109,14 @@ void Game::UpdateScreen() {
                            std::to_string(score_));
     gameScreen_.DrawText(gameScreen_.GetWidth() / 4,
                          gameScreen_.GetHeight() / 4, endGameMsg, 75, black);
-    gameScreen_.DrawText(gameScreen_.GetWidth() / 4,
-                         gameScreen_.GetHeight() / 2, "Click to play again!", 55, black);
-    //  some opponent figure 8 angular drawing
+    gameScreen_.DrawRectangle(170, gameScreen_.GetHeight() * 0.5, 200 , 90, lightGreen);
+    gameScreen_.DrawText(200, gameScreen_.GetHeight() * 0.5 + 10, "PLAY", 70, black);
+    gameScreen_.DrawRectangle(470, gameScreen_.GetHeight() * 0.5, 200 , 90, red);
+    gameScreen_.DrawText(510, gameScreen_.GetHeight() * 0.5 + 10, "QUIT", 70, black);
     if (lastO_.GetIsActive() && lastO_.GetToggle() == 1) {
       lastO_.Draw(gameScreen_);
     } else if (lastO_.GetIsActive() && lastO_.GetToggle() == 2) {
       lastO_.DrawBackwords(gameScreen_);
-    }
-    if (lastO_.GetIsActive()) {
-      lastO_.eMove(gameScreen_);
     }
   }
 }
@@ -228,6 +226,9 @@ void Game::OnAnimationStep() {
   }
   UpdateScreen();
   timer_++;
+  if (HasLost() && lastO_.GetIsActive()) {
+    lastO_.eMove(gameScreen_);
+  }
   gameScreen_.Flush();
 }
 // OnMouseEvent() is a listener that takes in input from the mouse as an event
@@ -235,16 +236,21 @@ void Game::OnAnimationStep() {
 // mouse coordinates and the player's actions using the mouse's key presses
 void Game::OnMouseEvent(const graphics::MouseEvent &event) {
   if (startGame_) {
-    gameScreen_.DrawRectangle(170, gameScreen_.GetHeight() * 0.5, 200 , 80, lightGreen);
     if (event.GetMouseAction() == graphics::MouseAction::kPressed
         && event.GetX() > 170 && event.GetX() < 370
         && event.GetY() > gameScreen_.GetHeight() * 0.5
-        && event.GetY() < gameScreen_.GetHeight() * 0.5 + 80) {
+        && event.GetY() < gameScreen_.GetHeight() * 0.5 + 90) {
       startGame_ = false;
       int xPos = gameScreen_.GetWidth() / 2;
       int yPos = gameScreen_.GetHeight() * .75;
       thePlayer_.SetX(xPos);
       thePlayer_.SetY(yPos);
+    };
+    if (event.GetMouseAction() == graphics::MouseAction::kPressed
+        && event.GetX() > 470 && event.GetX() < 670
+        && event.GetY() > gameScreen_.GetHeight() * 0.5
+        && event.GetY() < gameScreen_.GetHeight() * 0.5 + 90) {
+      gameScreen_.Hide();
     }
   } else if (!lost_) {
     if (event.GetX() > 0 || event.GetX() < gameScreen_.GetWidth() ||
