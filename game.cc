@@ -27,7 +27,7 @@ bool Game::HasLost() const { return lost_; }
 // the opponent object somewhere on the screen*
 void Game::CreateOpponents() {
   std::unique_ptr<Opponent> opponent = std::make_unique<Opponent>();
-  int xPos = rand() % ((gameScreen_.GetWidth() / (7/8)) - (opponent->GetWidth())) + opponent->GetWidth() / 2;
+  int xPos = rand() % ((gameScreen_.GetWidth()) - (opponent->GetWidth() + opponent->GetWidth())) + opponent->GetWidth() / 2;
   int yPos = rand () % ((gameScreen_.GetHeight() / 2) - (opponent->GetHeight()) + opponent->GetHeight() / 2);
   opponent->SetX(xPos);
   opponent->SetY(yPos);
