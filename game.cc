@@ -308,6 +308,7 @@ void Game::ResetGame() {
   lastO_->SetMoveTimer(0);
 }
 void Game::CreateEO() {
+  lastO_->SetIsActive(true);
   int x = gameScreen_.GetWidth() / 2;
   int y = gameScreen_.GetHeight() / 2;
   lastO_->SetX(x);
