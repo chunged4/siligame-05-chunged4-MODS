@@ -27,26 +27,8 @@ bool Game::HasLost() const { return lost_; }
 // the opponent object somewhere on the screen*
 void Game::CreateOpponents() {
   std::unique_ptr<Opponent> opponent = std::make_unique<Opponent>();
-  int xPos;
-  int yPos;
-  int randomNum = rand() % 4;
-  if (randomNum == 0) {
-    // left bounds
-    xPos = rand() % (gameScreen_.GetWidth() / 8) + (opponent->GetWidth() / 2);
-    yPos = rand() % (gameScreen_.GetHeight() - opponent->GetHeight() - opponent->GetHeight() / 2) + (opponent->GetHeight() / 2);
-  } else if (randomNum == 1) {
-    // top bounds
-    xPos = rand() % (gameScreen_.GetWidth() - opponent->GetWidth() - opponent->GetWidth() / 2) + (opponent->GetWidth() / 2);
-    yPos = rand() % (gameScreen_.GetHeight() / 8) + (opponent->GetHeight() / 2);
-  } else if (randomNum == 2) {
-    // right bounds
-    xPos = rand() % (gameScreen_.GetWidth() - opponent->GetWidth() - opponent->GetWidth() / 2) + gameScreen_.GetWidth() * 0.875;
-    yPos = rand() % (gameScreen_.GetHeight() - opponent->GetHeight() - opponent->GetHeight() / 2) + (opponent->GetHeight() / 2);
-  } else if (randomNum == 3) {
-    // bottom bounds
-    xPos = rand() % (gameScreen_.GetWidth() - opponent->GetWidth() - opponent->GetWidth() / 2) + (opponent->GetWidth() / 2);
-    yPos = rand() % (gameScreen_.GetHeight() - opponent->GetHeight() - opponent->GetHeight() / 2) + gameScreen_.GetWidth() * 0.875;
-  }
+  int xPos = rand() % ((gameScreen_.GetWidth() / (7/8)) - (opponent->GetWidth())) + opponent->GetWidth() / 2;
+  int yPos = rand () % ((gameScreen_.GetHeight() / 2) - (opponent->GetHeight()) + opponent->GetHeight() / 2);
   opponent->SetX(xPos);
   opponent->SetY(yPos);
   enemies_.push_back(std::move(opponent));
@@ -130,15 +112,13 @@ void Game::UpdateScreen() {
     gameScreen_.DrawText(gameScreen_.GetWidth() / 4,
                          gameScreen_.GetHeight() / 2, "Click to play again!", 55, black);
     //  some opponent figure 8 angular drawing
-    thePlayer_.SetIsActive(false);
-    for (int i = 0; i < enemies_.size(); i++) {
-      enemies_[i]->SetIsActive(false);
+    if (lastO_->GetIsActive() && lastO_->GetToggle() == 1) {
+      lastO_->Draw(gameScreen_);
+    } else if (lastO_->GetIsActive() && lastO_->GetToggle() == 2) {
+      lastO_->DrawBackwords(gameScreen_);
     }
-    for (int i = 0; i < balls_.size(); i++) {
-      balls_[i]->SetIsActive(false);
-    }
-    for (int i = 0; i < lBolts_.size(); i ++) {
-      lBolts_[i]->SetIsActive(false);
+    if (lastO_->GetIsActive()) {
+      lastO_->eMove(gameScreen_);
     }
   }
 }
@@ -172,6 +152,8 @@ void Game::FilterIntersections() {
       enemies_[i]->SetIsActive(false);
       thePlayer_.SetIsActive(false);
       lost_ = true;
+      CreateEO();
+      EndGame();
     } else {
       // playerprojectile vs opponent intersections
       for (int j = 0; j < lBolts_.size(); j++) {
@@ -193,6 +175,8 @@ void Game::FilterIntersections() {
       balls_[i]->SetIsActive(false);
       thePlayer_.SetIsActive(false);
       lost_ = true;
+      CreateEO();
+      EndGame();
     }
   }
 }
@@ -317,4 +301,23 @@ void Game::ResetGame() {
   thePlayer_.SetY(yPos);
   thePlayer_.SetIsActive(!lost_);
   thePlayer_.Draw(gameScreen_);
+  lastO_->SetIsActive(false);
+}
+void Game::CreateEO() {
+  int x = gameScreen_.GetWidth() / 2;
+  int y = gameScreen_.GetHeight() / 2;
+  lastO_->SetX(x);
+  lastO_->SetY(y);
+}
+void Game::EndGame() {
+  thePlayer_.SetIsActive(false);
+  for (int i = 0; i < enemies_.size(); i++) {
+    enemies_[i]->SetIsActive(false);
+  }
+  for (int i = 0; i < balls_.size(); i++) {
+    balls_[i]->SetIsActive(false);
+  }
+  for (int i = 0; i < lBolts_.size(); i ++) {
+    lBolts_[i]->SetIsActive(false);
+  }
 }

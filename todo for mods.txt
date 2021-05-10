@@ -8,4 +8,6 @@ evolving?
 shoottimer for player no spam
 opponents track player coordinates to shoot towards
 angular movement
-start and quit button
+start and quit button -- done -- how to close the window?
+high score file, disply highest score
+update to where the opponent can move

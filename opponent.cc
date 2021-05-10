@@ -28,7 +28,7 @@ void OpponentProjectile::Move(const graphics::Image &image) {
 // Opponent constructors
 Opponent::Opponent() : Opponent(0, 0) {}
 Opponent::Opponent(int x, int y)
-    : GameElement(x, y, 50, 46), shootCounter_(0) {}
+    : GameElement(x, y, 50, 46), shootTimer_(0), xSpeed_(3), ySpeed_(3), moveTimer_(0) {}
 
 // getters/setters
 int Opponent::GetToggle() const { return drawToggle_; }
@@ -37,6 +37,8 @@ bool Opponent::GetXToggle() const { return XToggle_; }
 void Opponent::SetXToggle(bool xToggle) { XToggle_ = xToggle; }
 bool Opponent::GetYToggle() const { return YToggle_; }
 void Opponent::SetYToggle(bool yToggle) { YToggle_ = yToggle; }
+int Opponent::GetMoveTimer() const { return moveTimer_; }
+void Opponent::SetMoveTimer(int moveTimer) { moveTimer_ = moveTimer; }
 
 // Opponent member functions
 void Opponent::Draw(graphics::Image &image) {
@@ -70,7 +72,7 @@ void Opponent::Move(const graphics::Image &image) {
   } else if (GetX() <= GetWidth() / 2) {
     SetXToggle(false);
   }
-  if (GetHeight() + GetY() >= image.GetHeight() - GetHeight() / 2) {
+  if (GetHeight() + GetY() >= image.GetHeight() / 2 - GetHeight() / 2) {
     SetYToggle(true);
   } else if (GetY() <= GetHeight() / 2) {
     SetYToggle(false);
@@ -91,14 +93,23 @@ void Opponent::Move(const graphics::Image &image) {
     SetIsActive(false);
   }
 }
+void Opponent::eMove(const graphics::Image &image) {
+  moveTimer_++;
+  double scale = 2 / (3 - cos(2 * moveTimer_));
+  int x = scale * cos(moveTimer_);
+  int y = scale * sin(2 * moveTimer_) / 2;
+  SetX(GetX() + xSpeed_ + x);
+  SetY(GetY() + ySpeed_ + y);
+  std::cout << moveTimer_ << std::endl;
+}
 std::unique_ptr<OpponentProjectile> Opponent::LaunchProjectile() {
-  shootCounter_++;
+  shootTimer_++;
   std::unique_ptr<OpponentProjectile> oProj_ptr =
       std::make_unique<OpponentProjectile>();
   oProj_ptr->SetX(GetWidth() / 2 + GetX());
   oProj_ptr->SetY(GetHeight() + GetY());
-  if (shootCounter_ % 60 == 0) {
-    shootCounter_ = 0;
+  if (shootTimer_ % 60 == 0) {
+    shootTimer_ = 0;
     return std::move(oProj_ptr);
   } else {
     return nullptr;

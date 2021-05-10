@@ -42,6 +42,8 @@ class Game : public graphics::AnimationEventListener,
   void RemoveInactive();
   void LaunchProjectiles();
   void ResetGame();
+  void CreateEO();
+  void EndGame();
 
  private:
   graphics::Image gameScreen_;
@@ -49,6 +51,7 @@ class Game : public graphics::AnimationEventListener,
   std::vector<std::unique_ptr<OpponentProjectile>> balls_;
   std::vector<std::unique_ptr<PlayerProjectile>> lBolts_;
   Player thePlayer_;
+  std::unique_ptr<Opponent> lastO_;
   int score_;
   bool lost_;
   bool startGame_;

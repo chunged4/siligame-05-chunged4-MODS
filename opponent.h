@@ -29,20 +29,24 @@ class Opponent : public GameElement {
   void SetYToggle(bool yToggle);
   int GetToggle() const;
   void SetToggle(int drawToggle);
+  int GetMoveTimer() const;
+  void SetMoveTimer(int moveTimer);
 
   //  Member Functions
   void Draw(graphics::Image &image) override;
   void DrawBackwords(graphics::Image &image);
   void Move(const graphics::Image &image) override;
+  void eMove(const graphics::Image &image);
   std::unique_ptr<OpponentProjectile> LaunchProjectile();
 
  private:
   bool XToggle_;
   bool YToggle_;
-  int shootCounter_;
+  int shootTimer_;
   int drawToggle_;
-  int xSpeed_ = 3;
-  int ySpeed_ = 3;
+  int xSpeed_;
+  int ySpeed_;
+  int moveTimer_;
 };
 
 #endif
