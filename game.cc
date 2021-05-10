@@ -241,7 +241,10 @@ void Game::OnMouseEvent(const graphics::MouseEvent &event) {
         && event.GetY() > gameScreen_.GetHeight() * 0.5
         && event.GetY() < gameScreen_.GetHeight() * 0.5 + 80) {
       startGame_ = false;
-      ResetGame();
+      int xPos = gameScreen_.GetWidth() / 2;
+      int yPos = gameScreen_.GetHeight() * .75;
+      thePlayer_.SetX(xPos);
+      thePlayer_.SetY(yPos);
     }
   } else if (!lost_) {
     if (event.GetX() > 0 || event.GetX() < gameScreen_.GetWidth() ||
@@ -302,6 +305,7 @@ void Game::ResetGame() {
   thePlayer_.SetIsActive(!lost_);
   thePlayer_.Draw(gameScreen_);
   lastO_->SetIsActive(false);
+  lastO_->SetMoveTimer(0);
 }
 void Game::CreateEO() {
   int x = gameScreen_.GetWidth() / 2;
