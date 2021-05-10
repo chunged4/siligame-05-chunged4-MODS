@@ -112,13 +112,13 @@ void Game::UpdateScreen() {
     gameScreen_.DrawText(gameScreen_.GetWidth() / 4,
                          gameScreen_.GetHeight() / 2, "Click to play again!", 55, black);
     //  some opponent figure 8 angular drawing
-    if (lastO_->GetIsActive() && lastO_->GetToggle() == 1) {
-      lastO_->Draw(gameScreen_);
-    } else if (lastO_->GetIsActive() && lastO_->GetToggle() == 2) {
-      lastO_->DrawBackwords(gameScreen_);
+    if (lastO_.GetIsActive() && lastO_.GetToggle() == 1) {
+      lastO_.Draw(gameScreen_);
+    } else if (lastO_.GetIsActive() && lastO_.GetToggle() == 2) {
+      lastO_.DrawBackwords(gameScreen_);
     }
-    if (lastO_->GetIsActive()) {
-      lastO_->eMove(gameScreen_);
+    if (lastO_.GetIsActive()) {
+      lastO_.eMove(gameScreen_);
     }
   }
 }
@@ -304,15 +304,15 @@ void Game::ResetGame() {
   thePlayer_.SetY(yPos);
   thePlayer_.SetIsActive(!lost_);
   thePlayer_.Draw(gameScreen_);
-  lastO_->SetIsActive(false);
-  lastO_->SetMoveTimer(0);
+  lastO_.SetIsActive(false);
+  lastO_.SetMoveTimer(0);
 }
 void Game::CreateEO() {
-  lastO_->SetIsActive(true);
+  lastO_.SetIsActive(true);
   int x = gameScreen_.GetWidth() / 2;
   int y = gameScreen_.GetHeight() / 2;
-  lastO_->SetX(x);
-  lastO_->SetY(y);
+  lastO_.SetX(x);
+  lastO_.SetY(y);
 }
 void Game::EndGame() {
   thePlayer_.SetIsActive(false);

@@ -1,4 +1,5 @@
 #include <vector>
+#include <fstream>
 
 #include "cpputils/graphics/image.h"
 #include "cpputils/graphics/image_event.h"
@@ -51,7 +52,7 @@ class Game : public graphics::AnimationEventListener,
   std::vector<std::unique_ptr<OpponentProjectile>> balls_;
   std::vector<std::unique_ptr<PlayerProjectile>> lBolts_;
   Player thePlayer_;
-  std::unique_ptr<Opponent> lastO_;
+  Opponent lastO_;
   int score_;
   bool lost_;
   bool startGame_;
