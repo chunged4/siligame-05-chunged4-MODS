@@ -55,7 +55,6 @@ void Game::UpdateScreen() {
   gameScreen_.DrawRectangle(0, 0, gameScreen_.GetWidth(),
                               gameScreen_.GetHeight(), lightBlue);
   if (startGame_) {
-    gameScreen_.Load("startBackground (resized).bmp");
     std::string startMsg("SILIG  ME");
     gameScreen_.DrawText(gameScreen_.GetWidth() / 3, gameScreen_.GetHeight() / 6, startMsg, 75, black);
     thePlayer_.SetX(gameScreen_.GetWidth() / 2 + 8);
@@ -239,8 +238,8 @@ void Game::OnMouseEvent(const graphics::MouseEvent &event) {
   if (startGame_) {
     if (event.GetMouseAction() == graphics::MouseAction::kPressed
         && event.GetX() > 170 && event.GetX() < 370
-        && event.GetY() > gameScreen_.GetHeight() * 0.5
-        && event.GetY() < gameScreen_.GetHeight() * 0.5 + 90) {
+        && event.GetY() > gameScreen_.GetHeight() * 0.5 + 30
+        && event.GetY() < gameScreen_.GetHeight() * 0.5 + 110) {
       startGame_ = false;
       int xPos = gameScreen_.GetWidth() / 2;
       int yPos = gameScreen_.GetHeight() * .75;
@@ -249,8 +248,8 @@ void Game::OnMouseEvent(const graphics::MouseEvent &event) {
     }
     if (event.GetMouseAction() == graphics::MouseAction::kPressed
         && event.GetX() > 470 && event.GetX() < 670
-        && event.GetY() > gameScreen_.GetHeight() * 0.5
-        && event.GetY() < gameScreen_.GetHeight() * 0.5 + 90) {
+        && event.GetY() > gameScreen_.GetHeight() * 0.5 + 30
+        && event.GetY() < gameScreen_.GetHeight() * 0.5 + 100) {
       gameScreen_.Hide();
     }
   } else if (!lost_) {
@@ -294,17 +293,19 @@ void Game::OnMouseEvent(const graphics::MouseEvent &event) {
         lBolts_.push_back(std::move(bolt));
       }
     }
+    gameScreen_.DrawRectangle(250, gameScreen_.GetHeight() * 0.5 + 30, 200 , 110, lightGreen);
+    gameScreen_.DrawRectangle(540, gameScreen_.GetHeight() * 0.5 + 30, 200 , 100, red);
   } else if (lost_ && !startGame_) {
     if (event.GetMouseAction() == graphics::MouseAction::kPressed
-        && event.GetX() > 170 && event.GetX() < 370
-        && event.GetY() > gameScreen_.GetHeight() * 0.5
-        && event.GetY() < gameScreen_.GetHeight() * 0.5 + 90) {
+        && event.GetX() > 250 && event.GetX() < 450
+        && event.GetY() > gameScreen_.GetHeight() * 0.5 + 30
+        && event.GetY() < gameScreen_.GetHeight() * 0.5 + 110) {
       ResetGame();
     }
     if (event.GetMouseAction() == graphics::MouseAction::kPressed
-        && event.GetX() > 470 && event.GetX() < 670
-        && event.GetY() > gameScreen_.GetHeight() * 0.5
-        && event.GetY() < gameScreen_.GetHeight() * 0.5 + 90) {
+        && event.GetX() > 540 && event.GetX() < 740
+        && event.GetY() > gameScreen_.GetHeight() * 0.5 + 30
+        && event.GetY() < gameScreen_.GetHeight() * 0.5 + 100) {
       gameScreen_.Hide();
     }
   }
