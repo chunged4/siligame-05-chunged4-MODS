@@ -238,7 +238,7 @@ void Game::OnMouseEvent(const graphics::MouseEvent &event) {
   if (startGame_) {
     if (event.GetMouseAction() == graphics::MouseAction::kPressed
         && event.GetX() > 170 && event.GetX() < 370
-        && event.GetY() > gameScreen_.GetHeight() * 0.5 + 30
+        && event.GetY() > gameScreen_.GetHeight() * 0.5
         && event.GetY() < gameScreen_.GetHeight() * 0.5 + 110) {
       startGame_ = false;
       int xPos = gameScreen_.GetWidth() / 2;
@@ -248,7 +248,7 @@ void Game::OnMouseEvent(const graphics::MouseEvent &event) {
     }
     if (event.GetMouseAction() == graphics::MouseAction::kPressed
         && event.GetX() > 470 && event.GetX() < 670
-        && event.GetY() > gameScreen_.GetHeight() * 0.5 + 30
+        && event.GetY() > gameScreen_.GetHeight() * 0.5
         && event.GetY() < gameScreen_.GetHeight() * 0.5 + 100) {
       gameScreen_.Hide();
     }
@@ -293,8 +293,6 @@ void Game::OnMouseEvent(const graphics::MouseEvent &event) {
         lBolts_.push_back(std::move(bolt));
       }
     }
-    gameScreen_.DrawRectangle(250, gameScreen_.GetHeight() * 0.5 + 30, 200 , 110, lightGreen);
-    gameScreen_.DrawRectangle(540, gameScreen_.GetHeight() * 0.5 + 30, 200 , 100, red);
   } else if (lost_ && !startGame_) {
     if (event.GetMouseAction() == graphics::MouseAction::kPressed
         && event.GetX() > 250 && event.GetX() < 450
