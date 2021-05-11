@@ -55,7 +55,7 @@ void Game::UpdateScreen() {
   gameScreen_.DrawRectangle(0, 0, gameScreen_.GetWidth(),
                               gameScreen_.GetHeight(), lightBlue);
   if (startGame_) {
-    // gameScreen_.Load("startBackground.bmp");
+    gameScreen_.Load("startBackground.bmp");
     std::string startMsg("SILIG  ME");
     gameScreen_.DrawText(gameScreen_.GetWidth() / 3, gameScreen_.GetHeight() / 6, startMsg, 75, black);
     thePlayer_.SetX(gameScreen_.GetWidth() / 2 + 8);
@@ -246,7 +246,7 @@ void Game::OnMouseEvent(const graphics::MouseEvent &event) {
       int yPos = gameScreen_.GetHeight() * .75;
       thePlayer_.SetX(xPos);
       thePlayer_.SetY(yPos);
-    };
+    }
     if (event.GetMouseAction() == graphics::MouseAction::kPressed
         && event.GetX() > 470 && event.GetX() < 670
         && event.GetY() > gameScreen_.GetHeight() * 0.5
@@ -295,8 +295,17 @@ void Game::OnMouseEvent(const graphics::MouseEvent &event) {
       }
     }
   } else if (lost_ && !startGame_) {
-    if (event.GetMouseAction() == graphics::MouseAction::kPressed) {
+    if (event.GetMouseAction() == graphics::MouseAction::kPressed
+        && event.GetX() > 170 && event.GetX() < 370
+        && event.GetY() > gameScreen_.GetHeight() * 0.5
+        && event.GetY() < gameScreen_.GetHeight() * 0.5 + 90) {
       ResetGame();
+    }
+    if (event.GetMouseAction() == graphics::MouseAction::kPressed
+        && event.GetX() > 470 && event.GetX() < 670
+        && event.GetY() > gameScreen_.GetHeight() * 0.5
+        && event.GetY() < gameScreen_.GetHeight() * 0.5 + 90) {
+      gameScreen_.Hide();
     }
   }
 }
