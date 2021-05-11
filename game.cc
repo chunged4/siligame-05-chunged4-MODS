@@ -108,11 +108,11 @@ void Game::UpdateScreen() {
     std::string endGameMsg("GAME OVER\nSCORE: " +
                            std::to_string(score_));
     gameScreen_.DrawText(gameScreen_.GetWidth() / 4,
-                         gameScreen_.GetHeight() / 3, endGameMsg, 70, black);
-    gameScreen_.DrawRectangle(170, gameScreen_.GetHeight() * 0.5, 200 , 110, lightGreen);
+                         gameScreen_.GetHeight() / 5, endGameMsg, 70, black);
+    gameScreen_.DrawRectangle(170, gameScreen_.GetHeight() * 0.5 + 30, 200 , 110, lightGreen);
     gameScreen_.DrawText(200, gameScreen_.GetHeight() * 0.5 + 20, "PLAY", 60, black);
-    gameScreen_.DrawText(180, gameScreen_.GetHeight() * 0.5 + 50, "AGAIN", 60, black);
-    gameScreen_.DrawRectangle(470, gameScreen_.GetHeight() * 0.5, 200 , 100, red);
+    gameScreen_.DrawText(180, gameScreen_.GetHeight() * 0.5 + 65, "AGAIN", 60, black);
+    gameScreen_.DrawRectangle(470, gameScreen_.GetHeight() * 0.5 + 30, 200 , 100, red);
     gameScreen_.DrawText(510, gameScreen_.GetHeight() * 0.5 + 20, "QUIT", 60, black);
     if (lastO_.GetIsActive() && lastO_.GetToggle() == 1) {
       lastO_.Draw(gameScreen_);
