@@ -18,7 +18,9 @@ class GameElement {
   int GetY() const;
   void SetY(int y);
   int GetWidth() const;
+  void SetWidth(int width);
   int GetHeight() const;
+  void SetHeight(int height);
   bool GetIsActive() const;
   void SetIsActive(bool isActive);
 

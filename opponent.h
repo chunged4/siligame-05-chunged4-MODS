@@ -44,6 +44,7 @@ class Opponent : public GameElement {
   bool YToggle_;
   int shootTimer_;
   int drawToggle_;
+  int drawChar_;
   int xSpeed_;
   int ySpeed_;
   int moveTimer_;

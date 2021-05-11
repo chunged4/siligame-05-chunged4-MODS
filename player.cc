@@ -9,6 +9,8 @@ int Player::GetToggle() const { return drawToggle_; }
 void Player::SetToggle(int drawToggle) { drawToggle_ = drawToggle; }
 int Player::GetCoolDown() const { return coolDown_; }
 void Player::SetCoolDown(int coolDown) { coolDown_ = coolDown; }
+int Player::GetLives() const { return lives_; }
+void Player::SetLives(int lives) { lives_ = lives; }
 
 // Player member functions
 void Player::Draw(graphics::Image &image) {

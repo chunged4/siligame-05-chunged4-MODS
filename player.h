@@ -13,6 +13,8 @@ class Player : public GameElement {
   void SetToggle(int drawToggle);
   int GetCoolDown() const;
   void SetCoolDown(int coolDown);
+  int GetLives() const;
+  void SetLives(int lives);
   //  Member Functions
   void Draw(graphics::Image &image) override;
   void DrawBackwords(graphics::Image &image);
@@ -21,6 +23,7 @@ class Player : public GameElement {
  private:
   int drawToggle_;
   int coolDown_;
+  int lives_;
 };
 
 class PlayerProjectile : public GameElement {

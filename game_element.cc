@@ -11,7 +11,9 @@ void GameElement::SetX(int x) { x_ = x; }
 int GameElement::GetY() const { return y_; }
 void GameElement::SetY(int y) { y_ = y; }
 int GameElement::GetWidth() const { return kWidth_; }
+void GameElement::SetWidth(int width) { kWidth_ = width; }
 int GameElement::GetHeight() const { return kHeight_; }
+void GameElement::SetHeight(int height) { kHeight_ = height; }
 bool GameElement::GetIsActive() const { return is_active_; }
 void GameElement::SetIsActive(bool isActive) { is_active_ = isActive; }
 // member functions

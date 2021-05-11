@@ -4,10 +4,15 @@ power ups
     double shoots
     invincibility
     invisibility
+    hearts + 1 life
 evolving?
+  lives kinda thing, pichu life 1, pikachu life 2, raichu life 3
 shoottimer for player no spam
 opponents track player coordinates to shoot towards
 angular movement
-start and quit button -- done -- how to close the window?
-high score file, disply highest score
-update to where the opponent can move
+start and quit button -- done -- how to close the window? -- done -- 
+high score file, display highest score
+update to where the opponent can move -- done --
+life indicator 3 hearts
+    black heart for no life 
+    full heart for one life

@@ -45,18 +45,22 @@ class Game : public graphics::AnimationEventListener,
   void ResetGame();
   void CreateEO();
   void EndGame();
+  void HandleHighScores();
 
  private:
   graphics::Image gameScreen_;
   std::vector<std::unique_ptr<Opponent>> enemies_;
   std::vector<std::unique_ptr<OpponentProjectile>> balls_;
   std::vector<std::unique_ptr<PlayerProjectile>> lBolts_;
+  std::vector<std::unique_ptr<Opponent>> eEnemies_;
   Player thePlayer_;
   Opponent lastO_;
   int score_;
   bool lost_;
   bool startGame_;
   int timer_;
+  std::string highName_;
+  int highScore_;
 };
 
 #endif

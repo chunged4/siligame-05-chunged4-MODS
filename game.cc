@@ -52,8 +52,9 @@ void Game::Init() {
 // oppoenent and player depending on the toggle that determines which way they
 // are facing
 void Game::UpdateScreen() {
-  gameScreen_.DrawRectangle(0, 0, gameScreen_.GetWidth(),
-                              gameScreen_.GetHeight(), lightBlue);
+  // gameScreen_.DrawRectangle(0, 0, gameScreen_.GetWidth(),
+  //                             gameScreen_.GetHeight(), lightBlue);
+  gameScreen_.Load("background.bmp");
   if (startGame_) {
     std::string startMsg("SILIG  ME");
     gameScreen_.DrawText(gameScreen_.GetWidth() / 3, gameScreen_.GetHeight() / 6, startMsg, 75, black);
@@ -340,4 +341,7 @@ void Game::EndGame() {
   for (int i = 0; i < lBolts_.size(); i ++) {
     lBolts_[i]->SetIsActive(false);
   }
+}
+void Game::HandleHighScores() {
+
 }

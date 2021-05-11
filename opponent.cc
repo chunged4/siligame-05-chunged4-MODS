@@ -28,7 +28,18 @@ void OpponentProjectile::Move(const graphics::Image &image) {
 // Opponent constructors
 Opponent::Opponent() : Opponent(0, 0) {}
 Opponent::Opponent(int x, int y)
-    : GameElement(x, y, 50, 46), shootTimer_(0), xSpeed_(3), ySpeed_(3), moveTimer_(0) {}
+    : GameElement(x, y, 50, 50), shootTimer_(0), xSpeed_(3), ySpeed_(3), moveTimer_(0) {
+  int randomMove = rand() % 4 + 1;
+  if (randomMove == 1) {
+    XToggle_ = true;
+  } else if (randomMove == 2) {
+    XToggle_ = false;
+  } else if (randomMove == 3) {
+    YToggle_ = true;
+  } else if (randomMove == 4) {
+    YToggle_ = false;
+  }
+}
 
 // getters/setters
 int Opponent::GetToggle() const { return drawToggle_; }
