@@ -95,7 +95,7 @@ void Opponent::Move(const graphics::Image &image) {
 }
 void Opponent::eMove(const graphics::Image &image) {
   moveTimer_++;
-  SetToggle(1);
+  // SetToggle(1);
   double scale = 2 / (3 - cos(2 * moveTimer_));
   int x = scale * cos(moveTimer_);
   int y = scale * sin(2 * moveTimer_) / 2;
