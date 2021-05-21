@@ -6,10 +6,10 @@ power ups
     invisibility
     hearts + 1 life
 evolving?
-  lives kinda thing, pichu life 1, pikachu life 2, raichu life 3
+  lives kinda thing, pichu life 1, pikachu life 2, raichu life 3 -- done -- 
 shoottimer for player no spam
 opponents track player coordinates to shoot towards
-angular movement
+angular movement -- scratch --
 start and quit button -- done -- how to close the window? -- done -- 
 high score file, display highest score
 update to where the opponent can move -- done --
