@@ -15,7 +15,8 @@ class OpponentProjectile : public GameElement {
   void Move(const graphics::Image &image) override;
 
  private:
-  int moveSpeed_;
+  int xSpeed_;
+  int ySpeed_;
 };
 
 class Opponent : public GameElement {
@@ -38,7 +39,7 @@ class Opponent : public GameElement {
   void DrawBackwords(graphics::Image &image);
   void Move(const graphics::Image &image) override;
   void eMove(const graphics::Image &image);
-  std::unique_ptr<OpponentProjectile> LaunchProjectile();
+  std::unique_ptr<OpponentProjectile> LaunchProjectile(int playerX, int playerY);
 
  private:
   bool XToggle_;

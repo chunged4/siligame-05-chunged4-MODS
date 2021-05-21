@@ -5,6 +5,7 @@
 #include "cpputils/graphics/image_event.h"
 #include "opponent.h"
 #include "player.h"
+#include "heart.h"
 
 const graphics::Color lightBlue(173, 216, 230);
 const graphics::Color black(0, 0, 0);
@@ -45,6 +46,7 @@ class Game : public graphics::AnimationEventListener,
   void ResetGame();
   void EndGame();
   void HandleHighScores();
+  void HandleHearts();
 
  private:
   graphics::Image gameScreen_;
@@ -60,6 +62,7 @@ class Game : public graphics::AnimationEventListener,
   int timer_;
   std::string highName_;
   int highScore_;
+  std::vector<Heart> displayHearts_;
 };
 
 #endif

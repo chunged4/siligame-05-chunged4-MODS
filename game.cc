@@ -77,6 +77,9 @@ void Game::UpdateScreen() {
   } else {
     std::string scoreMsg("Score: " + std::to_string(score_));
     gameScreen_.DrawText(0, 0, scoreMsg, 30, black);
+    for (int i = 0; i < displayHearts_.size(); i++) {
+      displayHearts_[i].Draw(gameScreen_);
+    }
     for (int i = 0; i < enemies_.size(); i++) {
       if (enemies_[i]->GetIsActive() && enemies_[i]->GetToggle() == 1) {
         enemies_[i]->Draw(gameScreen_);
@@ -146,6 +149,12 @@ void Game::FilterIntersections() {
         enemies_[i]->IntersectsWith(&thePlayer_)) {
       enemies_[i]->SetIsActive(false);
       thePlayer_.SetLives(thePlayer_.GetLives() - 1);
+      for (int i = 0; i < displayHearts_.size(); i++) {
+        if (displayHearts_[i].GetToggleDraw() == 1) {
+          displayHearts_[i].SetToggleDraw(2);
+          return;
+        }
+      }
     } else {
       // playerprojectile vs opponent intersections
       for (int j = 0; j < lBolts_.size(); j++) {
@@ -166,6 +175,12 @@ void Game::FilterIntersections() {
         balls_[i]->IntersectsWith(&thePlayer_)) {
       balls_[i]->SetIsActive(false);
       thePlayer_.SetLives(thePlayer_.GetLives() - 1);
+      for (int i = 0; i < displayHearts_.size(); i++) {
+        if (displayHearts_[i].GetToggleDraw() == 1) {
+          displayHearts_[i].SetToggleDraw(2);
+          return;
+        }
+      }
     }
   }
   if (thePlayer_.GetLives() == 0) {
@@ -200,7 +215,7 @@ void Game::LaunchProjectiles() {
   for (int i = 0; i < enemies_.size(); i++) {
     if (enemies_[i]->GetIsActive()) {
       std::unique_ptr<OpponentProjectile> oProj =
-          enemies_[i]->LaunchProjectile();
+          enemies_[i]->LaunchProjectile(thePlayer_.GetX(), thePlayer_.GetY());
       if (oProj != nullptr) {
         balls_.push_back(std::move(oProj));
       }
@@ -242,6 +257,7 @@ void Game::OnMouseEvent(const graphics::MouseEvent &event) {
       thePlayer_.SetX(xPos);
       thePlayer_.SetY(yPos);
       thePlayer_.SetLives(3);
+      HandleHearts();
     }
     if (event.GetMouseAction() == graphics::MouseAction::kPressed
         && event.GetX() > 470 && event.GetX() < 670
@@ -254,10 +270,18 @@ void Game::OnMouseEvent(const graphics::MouseEvent &event) {
       event.GetY() > 0 || event.GetY() < gameScreen_.GetHeight()) {
       if (event.GetMouseAction() == graphics::MouseAction::kMoved ||
           event.GetMouseAction() == graphics::MouseAction::kDragged) {
-        if (event.GetX() - (thePlayer_.GetX() + thePlayer_.GetWidth() / 2) > 0) {
-          thePlayer_.SetToggle(2);
-        } else if (event.GetX() - (thePlayer_.GetX() + thePlayer_.GetWidth() / 2) < 0) {
+        if (thePlayer_.GetLives() == 3) {
+          if (event.GetX() - (thePlayer_.GetX() + thePlayer_.GetWidth() / 2) > 0) {
             thePlayer_.SetToggle(1);
+          } else if (event.GetX() - (thePlayer_.GetX() + thePlayer_.GetWidth() / 2) < 0) {
+            thePlayer_.SetToggle(2);
+          }
+        } else {
+          if (event.GetX() - (thePlayer_.GetX() + thePlayer_.GetWidth() / 2) > 0) {
+            thePlayer_.SetToggle(2);
+          } else if (event.GetX() - (thePlayer_.GetX() + thePlayer_.GetWidth() / 2) < 0) {
+            thePlayer_.SetToggle(1);
+          }
         }
         thePlayer_.SetX(event.GetX() - (thePlayer_.GetWidth() / 2));
         thePlayer_.SetY(event.GetY() - (thePlayer_.GetHeight() / 2));
@@ -265,7 +289,7 @@ void Game::OnMouseEvent(const graphics::MouseEvent &event) {
           if (thePlayer_.GetX() < 0) {
             thePlayer_.SetX(event.GetX());
           }
-          if (thePlayer_.GetY() < 0) {
+          if (thePlayer_.GetY() < 40) {
             thePlayer_.SetY(event.GetY());
           }
           if (thePlayer_.GetX() + thePlayer_.GetWidth() >
@@ -290,7 +314,6 @@ void Game::OnMouseEvent(const graphics::MouseEvent &event) {
         lBolts_.push_back(std::move(bolt));
       }
     }
-    std::cout << event.GetY() << std::endl;
   } else if (lost_ && !startGame_) {
     if (event.GetMouseAction() == graphics::MouseAction::kPressed
         && event.GetX() > 250 && event.GetX() < 450
@@ -332,7 +355,21 @@ void Game::EndGame() {
   for (int i = 0; i < lBolts_.size(); i ++) {
     lBolts_[i]->SetIsActive(false);
   }
+  for (int i = 0; i < displayHearts_.size(); i++) {
+    displayHearts_[i].SetIsActive(false);
+  }
 }
 void Game::HandleHighScores() {
 
+}
+void Game::HandleHearts() {
+  Heart h1(gameScreen_.GetWidth() - 90, gameScreen_.GetHeight() - 5);
+  Heart h2(gameScreen_.GetWidth() - 60, gameScreen_.GetHeight() - 5);
+  Heart h3(gameScreen_.GetWidth() - 30, gameScreen_.GetHeight() - 5);
+  displayHearts_.push_back(h1);
+  displayHearts_.push_back(h2);
+  displayHearts_.push_back(h3);
+  for (int i = 0; i < displayHearts_.size(); i++) {
+    displayHearts_[i].SetYSpeed(0);
+  }
 }

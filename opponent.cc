@@ -3,7 +3,7 @@
 // OpponentProjectile constructors
 OpponentProjectile::OpponentProjectile() : OpponentProjectile(0, 0) {}
 OpponentProjectile::OpponentProjectile(int x, int y)
-    : GameElement(x, y, 12, 12), moveSpeed_(5) {}
+    : GameElement(x, y, 12, 12), xSpeed_(0), ySpeed_(5) {}
 
 // OpponentProjectile member functions
 void OpponentProjectile::Draw(graphics::Image &image) {
@@ -19,7 +19,7 @@ void OpponentProjectile::Draw(graphics::Image &image) {
   }
 }
 void OpponentProjectile::Move(const graphics::Image &image) {
-  SetY(GetY() + moveSpeed_);
+  SetY(GetY() + ySpeed_);
   if (IsOutOfBounds(image)) {
     SetIsActive(false);
   }
@@ -144,7 +144,7 @@ void Opponent::eMove(const graphics::Image &image) {
   SetX(GetX() + xSpeed_ + x);
   SetY(GetY() + ySpeed_ + y);
 }
-std::unique_ptr<OpponentProjectile> Opponent::LaunchProjectile() {
+std::unique_ptr<OpponentProjectile> Opponent::LaunchProjectile(int playerX, int playerY) {
   shootTimer_++;
   std::unique_ptr<OpponentProjectile> oProj_ptr =
       std::make_unique<OpponentProjectile>();
