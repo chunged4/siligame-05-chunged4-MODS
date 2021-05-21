@@ -43,7 +43,6 @@ class Game : public graphics::AnimationEventListener,
   void RemoveInactive();
   void LaunchProjectiles();
   void ResetGame();
-  void CreateEO();
   void EndGame();
   void HandleHighScores();
 

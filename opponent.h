@@ -15,6 +15,7 @@ class OpponentProjectile : public GameElement {
   void Move(const graphics::Image &image) override;
 
  private:
+  int moveSpeed_;
 };
 
 class Opponent : public GameElement {

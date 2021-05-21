@@ -3,7 +3,7 @@
 // OpponentProjectile constructors
 OpponentProjectile::OpponentProjectile() : OpponentProjectile(0, 0) {}
 OpponentProjectile::OpponentProjectile(int x, int y)
-    : GameElement(x, y, 12, 12) {}
+    : GameElement(x, y, 12, 12), moveSpeed_(5) {}
 
 // OpponentProjectile member functions
 void OpponentProjectile::Draw(graphics::Image &image) {
@@ -19,7 +19,7 @@ void OpponentProjectile::Draw(graphics::Image &image) {
   }
 }
 void OpponentProjectile::Move(const graphics::Image &image) {
-  SetY(GetY() + 3);
+  SetY(GetY() + moveSpeed_);
   if (IsOutOfBounds(image)) {
     SetIsActive(false);
   }
@@ -39,6 +39,7 @@ Opponent::Opponent(int x, int y)
   } else if (randomMove == 4) {
     YToggle_ = false;
   }
+  drawChar_ = rand() % 3 + 1;
 }
 
 // getters/setters
@@ -54,7 +55,22 @@ void Opponent::SetMoveTimer(int moveTimer) { moveTimer_ = moveTimer; }
 // Opponent member functions
 void Opponent::Draw(graphics::Image &image) {
   graphics::Image oImage(GetWidth(), GetHeight());
-  oImage.Load("ash-ketchup.bmp");
+  if (drawChar_ == 1) {
+    SetWidth(50);
+    SetHeight(90);
+    oImage.Initialize(GetWidth(), GetHeight());
+    oImage.Load("james.bmp");
+  } else if (drawChar_ == 2) {
+    SetWidth(50);
+    SetHeight(84);
+    oImage.Initialize(GetWidth(), GetHeight());
+    oImage.Load("jesse.bmp");
+  } else if (drawChar_ == 3) {
+    SetWidth(50);
+    SetHeight(52);
+    oImage.Initialize(GetWidth(), GetHeight());
+    oImage.Load("meowth.bmp");
+  }
   graphics::Color green(0, 255, 0);
   for (int i = 0; i < oImage.GetWidth(); i++) {
     for (int j = 0; j < oImage.GetHeight(); j++) {
@@ -65,14 +81,29 @@ void Opponent::Draw(graphics::Image &image) {
   }
 }
 void Opponent::DrawBackwords(graphics::Image &image) {
-  graphics::Image pImage(GetWidth(), GetHeight());
-  pImage.Load("ash-ketchup.bmp");
+  graphics::Image oImage(GetWidth(), GetHeight());
+  if (drawChar_ == 1) {
+    SetWidth(50);
+    SetHeight(90);
+    oImage.Initialize(GetWidth(), GetHeight());
+    oImage.Load("james.bmp");
+  } else if (drawChar_ == 2) {
+    SetWidth(50);
+    SetHeight(84);
+    oImage.Initialize(GetWidth(), GetHeight());
+    oImage.Load("jesse.bmp");
+  } else if (drawChar_ == 3) {
+    SetWidth(50);
+    SetHeight(52);
+    oImage.Initialize(GetWidth(), GetHeight());
+    oImage.Load("meowth.bmp");
+  }
   graphics::Color green(0, 255, 0);
-  for (int i = pImage.GetWidth() - 1; i >= 0; i--) {
-    for (int j = pImage.GetHeight() - 1; j >= 0; j--) {
-      if (pImage.GetColor(i, j) != green) {
+  for (int i = oImage.GetWidth() - 1; i >= 0; i--) {
+    for (int j = oImage.GetHeight() - 1; j >= 0; j--) {
+      if (oImage.GetColor(i, j) != green) {
         image.SetColor(GetX() + (GetWidth() - i), GetY() + j,
-                       pImage.GetColor(i, j));
+                       oImage.GetColor(i, j));
       }
     }
   }

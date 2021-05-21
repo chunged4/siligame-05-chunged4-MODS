@@ -16,3 +16,9 @@ update to where the opponent can move -- done --
 life indicator 3 hearts
     black heart for no life 
     full heart for one life
+pichu 50 x 69
+pikachu 50 x 51
+raichu 50 x 51
+james 50 x 90
+jesse 50 x 84
+meowth 50 x 52

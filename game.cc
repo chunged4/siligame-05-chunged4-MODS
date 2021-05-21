@@ -52,12 +52,11 @@ void Game::Init() {
 // oppoenent and player depending on the toggle that determines which way they
 // are facing
 void Game::UpdateScreen() {
-  // gameScreen_.DrawRectangle(0, 0, gameScreen_.GetWidth(),
-  //                             gameScreen_.GetHeight(), lightBlue);
   gameScreen_.Load("background.bmp");
   if (startGame_) {
     std::string startMsg("SILIG  ME");
     gameScreen_.DrawText(gameScreen_.GetWidth() / 3, gameScreen_.GetHeight() / 6, startMsg, 75, black);
+    thePlayer_.SetLives(2);
     thePlayer_.SetX(gameScreen_.GetWidth() / 2 + 8);
     thePlayer_.SetY(gameScreen_.GetHeight() / 6 + 10);
     if (thePlayer_.GetToggle() == 1) {
@@ -76,7 +75,6 @@ void Game::UpdateScreen() {
     gameScreen_.DrawRectangle(470, gameScreen_.GetHeight() * 0.5, 200 , 90, red);
     gameScreen_.DrawText(510, gameScreen_.GetHeight() * 0.5 + 10, "QUIT", 70, black);
   } else {
-    // gameScreen_.Load();
     std::string scoreMsg("Score: " + std::to_string(score_));
     gameScreen_.DrawText(0, 0, scoreMsg, 30, black);
     for (int i = 0; i < enemies_.size(); i++) {
@@ -103,8 +101,6 @@ void Game::UpdateScreen() {
     }
   }
   if (HasLost()) {
-    gameScreen_.DrawRectangle(0, 0, gameScreen_.GetWidth(),
-                              gameScreen_.GetHeight(), lightBlue);
     std::string endGameMsg("GAME OVER\nSCORE: " +
                            std::to_string(score_));
     gameScreen_.DrawText(gameScreen_.GetWidth() / 3,
@@ -149,10 +145,7 @@ void Game::FilterIntersections() {
     if (enemies_[i]->GetIsActive() && thePlayer_.GetIsActive() &&
         enemies_[i]->IntersectsWith(&thePlayer_)) {
       enemies_[i]->SetIsActive(false);
-      thePlayer_.SetIsActive(false);
-      lost_ = true;
-      CreateEO();
-      EndGame();
+      thePlayer_.SetLives(thePlayer_.GetLives() - 1);
     } else {
       // playerprojectile vs opponent intersections
       for (int j = 0; j < lBolts_.size(); j++) {
@@ -172,11 +165,13 @@ void Game::FilterIntersections() {
     if (balls_[i]->GetIsActive() && thePlayer_.GetIsActive() &&
         balls_[i]->IntersectsWith(&thePlayer_)) {
       balls_[i]->SetIsActive(false);
-      thePlayer_.SetIsActive(false);
-      lost_ = true;
-      CreateEO();
-      EndGame();
+      thePlayer_.SetLives(thePlayer_.GetLives() - 1);
     }
+  }
+  if (thePlayer_.GetLives() == 0) {
+    lost_ = true;
+    thePlayer_.SetIsActive(false);
+    EndGame();
   }
 }
 // RemoveInactive() goes through each game element and makes sure to remove them
@@ -246,6 +241,7 @@ void Game::OnMouseEvent(const graphics::MouseEvent &event) {
       int yPos = gameScreen_.GetHeight() * .75;
       thePlayer_.SetX(xPos);
       thePlayer_.SetY(yPos);
+      thePlayer_.SetLives(3);
     }
     if (event.GetMouseAction() == graphics::MouseAction::kPressed
         && event.GetX() > 470 && event.GetX() < 670
@@ -322,13 +318,7 @@ void Game::ResetGame() {
   thePlayer_.Draw(gameScreen_);
   lastO_.SetIsActive(false);
   lastO_.SetMoveTimer(0);
-}
-void Game::CreateEO() {
-  lastO_.SetIsActive(true);
-  int x = gameScreen_.GetWidth() / 2;
-  int y = gameScreen_.GetHeight() / 2;
-  lastO_.SetX(x);
-  lastO_.SetY(y);
+  thePlayer_.SetLives(3);
 }
 void Game::EndGame() {
   thePlayer_.SetIsActive(false);
