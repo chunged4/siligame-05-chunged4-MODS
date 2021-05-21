@@ -24,4 +24,9 @@
  "command" : "clang++ -std=c++17 game.cc -o main",
  "file" : "/root/sandbox/siligame-05-chunged4/game.cc"
  },
+ {
+ "directory" : "/root/sandbox/siligame-05-chunged4",
+ "command" : "clang++ -std=c++17 heart.cc -o main",
+ "file" : "/root/sandbox/siligame-05-chunged4/heart.cc"
+ }
 ]
