@@ -12,9 +12,9 @@ MAC_UT_COMPILE_FLAGS := -lm -lpthread -lX11 -I/usr/X11R6/include -L/usr/X11R6/li
 # checked, i.e. library definitions from cpputils.
 OTHER_IMPLEMS	:= cpputils/graphics/image.cc
 # Space-separated list of header files (e.g., algebra.hpp)
-HEADERS      		:= player.h opponent.h game_element.h game.h
+HEADERS      		:= player.h opponent.h game_element.h game.h heart.h
 # Space-separated list of implementation files (e.g., algebra.cpp)
-IMPLEMS       		:= player.cc opponent.cc game_element.cc game.cc
+IMPLEMS       		:= player.cc opponent.cc game_element.cc game.cc heart.cc
 # File containing main (e.g., main.cpp)
 DRIVER        		:= main.cc
 # Expected name of executable file
