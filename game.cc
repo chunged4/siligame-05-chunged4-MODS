@@ -113,11 +113,6 @@ void Game::UpdateScreen() {
     gameScreen_.DrawText(285, gameScreen_.GetHeight() * 0.5 + 85, "AGAIN", 50, black);
     gameScreen_.DrawRectangle(540, gameScreen_.GetHeight() * 0.5 + 30, 200 , 100, red);
     gameScreen_.DrawText(585, gameScreen_.GetHeight() * 0.5 + 50, "QUIT", 60, black);
-    if (lastO_.GetIsActive() && lastO_.GetToggle() == 1) {
-      lastO_.Draw(gameScreen_);
-    } else if (lastO_.GetIsActive() && lastO_.GetToggle() == 2) {
-      lastO_.DrawBackwords(gameScreen_);
-    }
   }
 }
 // Start() shows the screen displayed and exits the program when closed
@@ -237,8 +232,8 @@ void Game::OnAnimationStep() {
   }
   UpdateScreen();
   timer_++;
-  if (HasLost() && lastO_.GetIsActive()) {
-    lastO_.eMove(gameScreen_);
+  if (HasLost()) {
+    
   }
   gameScreen_.Flush();
 }
@@ -340,8 +335,6 @@ void Game::ResetGame() {
   thePlayer_.SetY(yPos);
   thePlayer_.SetIsActive(!lost_);
   thePlayer_.Draw(gameScreen_);
-  lastO_.SetIsActive(false);
-  lastO_.SetMoveTimer(0);
   thePlayer_.SetLives(3);
 }
 void Game::EndGame() {
@@ -363,9 +356,9 @@ void Game::HandleHighScores() {
 
 }
 void Game::HandleHearts() {
-  Heart h1(gameScreen_.GetWidth() - 90, gameScreen_.GetHeight() - 5);
-  Heart h2(gameScreen_.GetWidth() - 60, gameScreen_.GetHeight() - 5);
-  Heart h3(gameScreen_.GetWidth() - 30, gameScreen_.GetHeight() - 5);
+  Heart h1(gameScreen_.GetWidth() - 90, 5);
+  Heart h2(gameScreen_.GetWidth() - 60, 5);
+  Heart h3(gameScreen_.GetWidth() - 30, 5);
   displayHearts_.push_back(h1);
   displayHearts_.push_back(h2);
   displayHearts_.push_back(h3);
