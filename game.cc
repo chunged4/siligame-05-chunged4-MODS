@@ -319,9 +319,7 @@ void Game::OnMouseEvent(const graphics::MouseEvent &event) {
         }
       }
     }
-    if ((event.GetMouseAction() == graphics::MouseAction::kPressed &&
-        event.GetMouseAction() != graphics::MouseAction::kReleased) ||
-        event.GetMouseAction() == graphics::MouseAction::kDragged) {
+    if (event.GetMouseAction() == graphics::MouseAction::kPressed) {
       if (thePlayer_.GetIsActive()) {
         std::unique_ptr<PlayerProjectile> bolt =
             std::make_unique<PlayerProjectile>();
