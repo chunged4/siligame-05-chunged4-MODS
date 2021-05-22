@@ -243,17 +243,13 @@ void Game::LaunchProjectiles() {
 // run smoothly
 void Game::OnAnimationStep() {
   timer_++;
-  int randomNum; 
-  if (timer_ % 100 == 0) {
-    randomNum = rand() % 100 + 1;
-  }
   if (!(HasLost()) && !startGame_) {
     if (enemies_.size() == 0 || timer_ % 50 == 0) {
       CreateOpponents();
     }
-    // if (timer_ % randomNum == 0) {
-    //   CreateHearts();
-    // }
+    if (timer_ % 200 == 0) {
+      CreateHearts();
+    }
     MoveGameElements();
     LaunchProjectiles();
     FilterIntersections();
