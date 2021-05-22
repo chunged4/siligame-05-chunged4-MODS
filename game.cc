@@ -251,9 +251,9 @@ void Game::OnAnimationStep() {
     if (enemies_.size() == 0 || timer_ % 50 == 0) {
       CreateOpponents();
     }
-    if (timer_ % randomNum == 0) {
-      CreateHearts();
-    }
+    // if (timer_ % randomNum == 0) {
+    //   CreateHearts();
+    // }
     MoveGameElements();
     LaunchProjectiles();
     FilterIntersections();
