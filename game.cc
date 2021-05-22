@@ -144,11 +144,8 @@ void Game::FilterIntersections() {
         enemies_[i]->IntersectsWith(&thePlayer_)) {
       enemies_[i]->SetIsActive(false);
       thePlayer_.SetLives(thePlayer_.GetLives() - 1);
-      for (int i = 0; i < displayHearts_.size(); i++) {
-        if (displayHearts_[i].GetToggleDraw() == 1) {
-          displayHearts_[i].SetToggleDraw(2);
-          return;
-        }
+      if (thePlayer_.GetLives() != 0) {
+        displayHearts_[thePlayer_.GetLives() - 1].SetToggleDraw(2);
       }
     } else {
       // playerprojectile vs opponent intersections
@@ -170,12 +167,19 @@ void Game::FilterIntersections() {
         balls_[i]->IntersectsWith(&thePlayer_)) {
       balls_[i]->SetIsActive(false);
       thePlayer_.SetLives(thePlayer_.GetLives() - 1);
-      for (int i = 0; i < displayHearts_.size(); i++) {
-        if (displayHearts_[i].GetToggleDraw() == 1) {
-          displayHearts_[i].SetToggleDraw(2);
-          return;
-        }
+      if (thePlayer_.GetLives() != 0) {
+        displayHearts_[thePlayer_.GetLives() - 1].SetToggleDraw(2);
       }
+    }
+  }
+  for (int i = 0; i < hearts_.size(); i++) {
+    if (hearts_[i]->GetIsActive() && thePlayer_.GetIsActive() &&
+        hearts_[i]->IntersectsWith(&thePlayer_)) {
+        hearts_[i]->SetIsActive(false);
+        if (thePlayer_.GetIsActive() != 3) {
+          thePlayer_.SetLives(thePlayer_.GetLives() + 1);
+          displayHearts_[thePlayer_.GetLives() - 1].SetToggleDraw(2);
+        }
     }
   }
   if (thePlayer_.GetLives() == 0) {
@@ -200,6 +204,11 @@ void Game::RemoveInactive() {
   for (int i = lBolts_.size() - 1; i >= 0; i--) {
     if (!(lBolts_[i]->GetIsActive())) {
       lBolts_.erase(lBolts_.end() - (lBolts_.size() - i));
+    }
+  }
+  for (int i = hearts_.size() - 1; i >= 0; i--) {
+    if (!(hearts_[i]->GetIsActive())) {
+      hearts_.erase(hearts_.end() - (hearts_.size() - i));
     }
   }
 }

@@ -54,6 +54,7 @@ class Game : public graphics::AnimationEventListener,
   std::vector<std::unique_ptr<OpponentProjectile>> balls_;
   std::vector<std::unique_ptr<PlayerProjectile>> lBolts_;
   std::vector<std::unique_ptr<Opponent>> eEnemies_;
+  std::vector<std::unique_ptr<Heart>> hearts_;
   Player thePlayer_;
   int score_;
   bool lost_;
