@@ -104,6 +104,11 @@ void Game::UpdateScreen() {
         lBolts_[i]->Draw(gameScreen_);
       }
     }
+    for (int i = 0; i < hearts_.size(); i++) {
+      if (hearts_[i]->GetIsActive()) {
+        hearts_[i]->Draw(gameScreen_);
+      }
+    }
     if (thePlayer_.GetIsActive() && thePlayer_.GetToggle() == 1) {
       thePlayer_.Draw(gameScreen_);
     } else if (thePlayer_.GetIsActive() && thePlayer_.GetToggle() == 2) {
@@ -241,7 +246,7 @@ void Game::OnAnimationStep() {
     if (enemies_.size() == 0 || timer_ % 50 == 0) {
       CreateOpponents();
     }
-    if (randomNum == 50) {
+    if (timer_ % randomNum == 0) {
       CreateHearts();
     }
     MoveGameElements();
