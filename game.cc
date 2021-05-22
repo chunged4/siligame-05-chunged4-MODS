@@ -2,7 +2,7 @@
 
 // constructors
 Game::Game() : Game(800, 600) {}
-Game::Game(int width, int height) : score_(0), lost_(false), startGame_(true) {
+Game::Game(int width, int height) : score_(0), lost_(false), startGame_(true), timer_(1) {
   gameScreen_.Initialize(width, height);
 }
 
@@ -144,6 +144,11 @@ void Game::MoveGameElements() {
   for (int i = 0; i < lBolts_.size(); i++) {
     if (lBolts_[i]->GetIsActive()) {
       lBolts_[i]->Move(gameScreen_);
+    }
+  }
+  for (int i = 0; i < hearts_.size(); i++) {
+    if (hearts_[i]->GetIsActive()) {
+      hearts_[i]->Move(gameScreen_);
     }
   }
 }
@@ -357,7 +362,7 @@ void Game::ResetGame() {
   thePlayer_.SetIsActive(!lost_);
   thePlayer_.Draw(gameScreen_);
   thePlayer_.SetLives(3);
-  timer_ = 0;
+  timer_ = 1;
 }
 void Game::EndGame() {
   thePlayer_.SetIsActive(false);
