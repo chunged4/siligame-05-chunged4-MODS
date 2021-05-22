@@ -190,8 +190,8 @@ void Game::FilterIntersections() {
         hearts_[i]->IntersectsWith(&thePlayer_)) {
         hearts_[i]->SetIsActive(false);
         if (thePlayer_.GetLives() != 3) {
-          thePlayer_.SetLives(thePlayer_.GetLives() + 1);
           displayHearts_[thePlayer_.GetLives()].SetToggleDraw(1);
+          thePlayer_.SetLives(thePlayer_.GetLives() + 1);
         }
     }
   }
