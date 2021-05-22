@@ -315,6 +315,7 @@ void Game::OnMouseEvent(const graphics::MouseEvent &event) {
         && event.GetY() > gameScreen_.GetHeight() * 0.5 + 30
         && event.GetY() < gameScreen_.GetHeight() * 0.5 + 110) {
       ResetGame();
+      HandleHearts();
     }
     if (event.GetMouseAction() == graphics::MouseAction::kPressed
         && event.GetX() > 540 && event.GetX() < 740
