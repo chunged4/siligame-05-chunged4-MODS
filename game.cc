@@ -28,10 +28,17 @@ bool Game::HasLost() const { return lost_; }
 void Game::CreateOpponents() {
   std::unique_ptr<Opponent> opponent = std::make_unique<Opponent>();
   int xPos = rand() % ((gameScreen_.GetWidth()) - (opponent->GetWidth() + opponent->GetWidth())) + opponent->GetWidth() / 2;
-  int yPos = rand () % ((gameScreen_.GetHeight() / 2) - (opponent->GetHeight()) + opponent->GetHeight() / 2);
+  int yPos = rand() % ((gameScreen_.GetHeight() / 2) - (opponent->GetHeight()) + opponent->GetHeight() / 2);
   opponent->SetX(xPos);
   opponent->SetY(yPos);
   enemies_.push_back(std::move(opponent));
+}
+void Game::CreateHearts() {
+  std::unique_ptr<Heart> heart = std::make_unique<Heart>();
+  int xPos = rand() % ((gameScreen_.GetWidth()) - (heart->GetWidth() + (heart->GetWidth() / 2))) + heart->GetWidth() / 2;
+  heart->SetX(xPos);
+  heart->SetY(5);
+  hearts_.push_back(std::move(heart));
 }
 // Init() starts up the game with a random position for the player, and adds
 // a mouse and animation event listener to the graphics::Image object,
@@ -225,10 +232,14 @@ void Game::LaunchProjectiles() {
 // OnAnimationStep() is a listener run every millisecond, making the animations
 // run smoothly
 void Game::OnAnimationStep() {
-  // fix using game state ifs
+  timer_++;
+  int randomNum = rand() % timer_;
   if (!(HasLost()) && !startGame_) {
-    if (enemies_.size() == 0) {
+    if (enemies_.size() == 0 || timer_ % randomNum == 30) {
       CreateOpponents();
+    }
+    if (timer_ % randomNum == 137) {
+      CreateHearts();
     }
     MoveGameElements();
     LaunchProjectiles();
@@ -236,10 +247,6 @@ void Game::OnAnimationStep() {
     RemoveInactive();
   }
   UpdateScreen();
-  timer_++;
-  if (HasLost()) {
-    
-  }
   gameScreen_.Flush();
 }
 // OnMouseEvent() is a listener that takes in input from the mouse as an event
@@ -342,6 +349,7 @@ void Game::ResetGame() {
   thePlayer_.SetIsActive(!lost_);
   thePlayer_.Draw(gameScreen_);
   thePlayer_.SetLives(3);
+  timer_ = 0;
 }
 void Game::EndGame() {
   thePlayer_.SetIsActive(false);

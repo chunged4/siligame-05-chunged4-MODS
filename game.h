@@ -34,6 +34,7 @@ class Game : public graphics::AnimationEventListener,
 
   //  Member Functions
   void CreateOpponents();
+  void CreateHearts();
   void Init();
   void UpdateScreen();
   void Start();
