@@ -176,7 +176,7 @@ void Game::FilterIntersections() {
     if (hearts_[i]->GetIsActive() && thePlayer_.GetIsActive() &&
         hearts_[i]->IntersectsWith(&thePlayer_)) {
         hearts_[i]->SetIsActive(false);
-        if (thePlayer_.GetIsActive() != 3) {
+        if (thePlayer_.GetLives() != 3) {
           thePlayer_.SetLives(thePlayer_.GetLives() + 1);
           displayHearts_[thePlayer_.GetLives() - 1].SetToggleDraw(2);
         }
