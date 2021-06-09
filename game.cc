@@ -115,11 +115,14 @@ void Game::UpdateScreen() {
       thePlayer_.DrawBackwords(gameScreen_);
     }
   }
-  if (HasLost()) {
+  if (highScoreScreen && HasLost()) {
+    gameScreen_.DrawRectangle(0, 0, gameScreen_.GetWidth(), gameScreen_.GetHeight(), black);
     std::string endGameMsg("GAME OVER\nSCORE: " +
                            std::to_string(score_));
     gameScreen_.DrawText(gameScreen_.GetWidth() / 3,
                          gameScreen_.GetHeight() / 5, endGameMsg, 70, black);
+    // animation until user inputs the name
+  } else if (HasLost()) {
     gameScreen_.DrawRectangle(250, gameScreen_.GetHeight() * 0.5 + 30, 200 , 110, lightGreen);
     gameScreen_.DrawText(300, gameScreen_.GetHeight() * 0.5 + 40, "PLAY", 50, black);
     gameScreen_.DrawText(285, gameScreen_.GetHeight() * 0.5 + 85, "AGAIN", 50, black);
@@ -197,6 +200,7 @@ void Game::FilterIntersections() {
   }
   if (thePlayer_.GetLives() == 0) {
     lost_ = true;
+    highScoreScreen = true;
     thePlayer_.SetIsActive(false);
     EndGame();
   }
@@ -243,7 +247,7 @@ void Game::LaunchProjectiles() {
 // run smoothly
 void Game::OnAnimationStep() {
   timer_++;
-  if (!(HasLost()) && !startGame_) {
+  if (!(HasLost()) && !startGame_ && !highScoreScreen) {
     if (enemies_.size() == 0 || timer_ % 50 == 0) {
       CreateOpponents();
     }
@@ -328,7 +332,7 @@ void Game::OnMouseEvent(const graphics::MouseEvent &event) {
         lBolts_.push_back(std::move(bolt));
       }
     }
-  } else if (lost_ && !startGame_) {
+  } else if (lost_ && !startGame_ && !highScoreScreen) {
     if (event.GetMouseAction() == graphics::MouseAction::kPressed
         && event.GetX() > 250 && event.GetX() < 450
         && event.GetY() > gameScreen_.GetHeight() * 0.5 + 30
@@ -372,9 +376,25 @@ void Game::EndGame() {
   for (int i = 0; i < displayHearts_.size(); i++) {
     displayHearts_[i].SetIsActive(false);
   }
+  HandleHighScores();
 }
 void Game::HandleHighScores() {
-
+  std::ofstream highScoreFile("high_score.txt");
+  std::string userName;
+  std::cout << "Please enter your name: ";
+  std::getline(std::cin, userName);
+  if (highScoreFile.is_open()) { 
+    highScoreFile << userName << std::endl;
+    highScoreFile << score_ << std::endl;
+    highScoreFile << std::endl;
+    allScores.push_back(std::make_pair(userName, score_));
+    std::sort(allScores.begin(), allScores.end());
+    std::reverse(allScores.begin(), allScores.end());
+  } else {
+    std::cout << "Unable to open text" << std::endl;
+  }
+  highScoreScreen = false;
+  highScoreFile.close();
 }
 void Game::HandleHearts() {
   Heart h1(gameScreen_.GetWidth() - 90, 5);

@@ -2,19 +2,8 @@ opponents track player coordinates to shoot towards
 randomize opponent spawning, randomize heart dropping
 high score file
 
-create opponents at the edges of the screen --done--
-have different game states --done--
 power ups
     double shoots
     invincibility
     invisibility
     hearts + 1 life
-evolving?
-  lives kinda thing, pichu life 1, pikachu life 2, raichu life 3 -- done -- 
-shoottimer for player no spam
-angular movement -- scratch --
-start and quit button -- done -- how to close the window? -- done -- 
-update to where the opponent can move -- done --
-life indicator 3 hearts
-    black heart for no life 
-    full heart for one life -- done --

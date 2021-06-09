@@ -1,5 +1,6 @@
 #include <vector>
 #include <fstream>
+#include <algorithm>
 
 #include "cpputils/graphics/image.h"
 #include "cpputils/graphics/image_event.h"
@@ -47,6 +48,7 @@ class Game : public graphics::AnimationEventListener,
   void ResetGame();
   void EndGame();
   void HandleHighScores();
+  void displayHighScores();
   void HandleHearts();
 
  private:
@@ -61,9 +63,9 @@ class Game : public graphics::AnimationEventListener,
   bool lost_;
   bool startGame_;
   int timer_;
-  std::string highName_;
-  int highScore_;
+  bool highScoreScreen;
   std::vector<Heart> displayHearts_;
+  std::vector<std::pair<std::string, int>> allScores;
 };
 
 #endif
