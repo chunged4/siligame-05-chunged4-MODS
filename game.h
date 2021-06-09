@@ -48,7 +48,6 @@ class Game : public graphics::AnimationEventListener,
   void ResetGame();
   void EndGame();
   void HandleHighScores();
-  void displayHighScores();
   void HandleHearts();
 
  private:

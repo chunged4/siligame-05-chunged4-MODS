@@ -120,7 +120,7 @@ void Game::UpdateScreen() {
     std::string endGameMsg("GAME OVER\nSCORE: " +
                            std::to_string(score_));
     gameScreen_.DrawText(gameScreen_.GetWidth() / 3,
-                         gameScreen_.GetHeight() / 5, endGameMsg, 70, black);
+                         gameScreen_.GetHeight() / 5, endGameMsg, 70, red);
     // animation until user inputs the name
   } else if (HasLost()) {
     gameScreen_.DrawRectangle(250, gameScreen_.GetHeight() * 0.5 + 30, 200 , 110, lightGreen);
@@ -128,6 +128,18 @@ void Game::UpdateScreen() {
     gameScreen_.DrawText(285, gameScreen_.GetHeight() * 0.5 + 85, "AGAIN", 50, black);
     gameScreen_.DrawRectangle(540, gameScreen_.GetHeight() * 0.5 + 30, 200 , 100, red);
     gameScreen_.DrawText(585, gameScreen_.GetHeight() * 0.5 + 50, "QUIT", 60, black);
+    gameScreen_.DrawText(100, 100, "HIGH SCORES: ", 60, black);
+    std::string name_out;
+    int score_out;
+    if (allScores.size() < 3) {
+      for (int i = 0; i < allScores.size(); i++) {
+
+      }
+    } else {
+      for (int i = 0; i < 3; i++) {
+
+      }
+    }
   }
 }
 // Start() shows the screen displayed and exits the program when closed
@@ -372,6 +384,9 @@ void Game::EndGame() {
   }
   for (int i = 0; i < lBolts_.size(); i ++) {
     lBolts_[i]->SetIsActive(false);
+  }
+  for (int i = 0; i < hearts_.size(); i++) {
+    hearts_[i]->SetIsActive(false);
   }
   for (int i = 0; i < displayHearts_.size(); i++) {
     displayHearts_[i].SetIsActive(false);
