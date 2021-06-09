@@ -59,8 +59,8 @@ void Game::Init() {
 // oppoenent and player depending on the toggle that determines which way they
 // are facing
 void Game::UpdateScreen() {
-  gameScreen_.Load("background.bmp");
   if (startGame_) {
+    gameScreen_.Load("background.bmp");
     std::string startMsg("SILIG  ME");
     gameScreen_.DrawText(gameScreen_.GetWidth() / 3, gameScreen_.GetHeight() / 6, startMsg, 75, black);
     thePlayer_.SetLives(2);
@@ -82,6 +82,7 @@ void Game::UpdateScreen() {
     gameScreen_.DrawRectangle(470, gameScreen_.GetHeight() * 0.5, 200 , 90, red);
     gameScreen_.DrawText(510, gameScreen_.GetHeight() * 0.5 + 10, "QUIT", 70, black);
   } else {
+    gameScreen_.Load("background.bmp");
     std::string scoreMsg("Score: " + std::to_string(score_));
     gameScreen_.DrawText(0, 0, scoreMsg, 30, black);
     for (int i = 0; i < displayHearts_.size(); i++) {
@@ -123,6 +124,7 @@ void Game::UpdateScreen() {
                          gameScreen_.GetHeight() / 5, endGameMsg, 70, red);
     // animation until user inputs the name
   } else if (HasLost()) {
+    gameScreen_.Load("background.bmp");
     gameScreen_.DrawRectangle(250, gameScreen_.GetHeight() * 0.5 + 30, 200 , 110, lightGreen);
     gameScreen_.DrawText(300, gameScreen_.GetHeight() * 0.5 + 40, "PLAY", 50, black);
     gameScreen_.DrawText(285, gameScreen_.GetHeight() * 0.5 + 85, "AGAIN", 50, black);
