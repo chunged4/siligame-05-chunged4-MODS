@@ -347,7 +347,7 @@ void Game::OnMouseEvent(const graphics::MouseEvent &event) {
         lBolts_.push_back(std::move(bolt));
       }
     }
-  } else if (lost_ && !startGame_ && !highScoreScreen) {
+  } else if (lost_ && !startGame_) {
     if (event.GetMouseAction() == graphics::MouseAction::kPressed
         && event.GetX() > 250 && event.GetX() < 450
         && event.GetY() > gameScreen_.GetHeight() * 0.5 + 30
