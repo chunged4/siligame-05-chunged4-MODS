@@ -376,6 +376,9 @@ void Game::ResetGame() {
   thePlayer_.Draw(gameScreen_);
   thePlayer_.SetLives(3);
   timer_ = 1;
+  for (int i = 0; i < displayHearts_.size(); i++) {
+    displayHearts_[i].SetIsActive(true);
+  }
 }
 void Game::EndGame() {
   thePlayer_.SetIsActive(false);
