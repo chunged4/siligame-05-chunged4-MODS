@@ -116,15 +116,14 @@ void Game::UpdateScreen() {
       thePlayer_.DrawBackwords(gameScreen_);
     }
   }
-  // if (highScoreScreen && HasLost()) {
-  //   gameScreen_.DrawRectangle(0, 0, gameScreen_.GetWidth(), gameScreen_.GetHeight(), black);
-  //   std::string endGameMsg("GAME OVER\nSCORE: " +
-  //                          std::to_string(score_));
-  //   gameScreen_.DrawText(gameScreen_.GetWidth() / 3,
-  //                        gameScreen_.GetHeight() / 5, endGameMsg, 70, red);
-  //   // animation until user inputs the name
-  // } else 
-  if (HasLost()) {
+  if (highScoreScreen && HasLost()) {
+    gameScreen_.DrawRectangle(0, 0, gameScreen_.GetWidth(), gameScreen_.GetHeight(), black);
+    std::string endGameMsg("GAME OVER\nSCORE: " +
+                           std::to_string(score_));
+    gameScreen_.DrawText(gameScreen_.GetWidth() / 3,
+                         gameScreen_.GetHeight() / 5, endGameMsg, 70, red);
+    // animation until user inputs the name
+  } else if (HasLost()) {
     gameScreen_.Load("background.bmp");
     gameScreen_.DrawRectangle(250, gameScreen_.GetHeight() * 0.5 + 30, 200 , 110, lightGreen);
     gameScreen_.DrawText(300, gameScreen_.GetHeight() * 0.5 + 40, "PLAY", 50, black);
@@ -394,7 +393,8 @@ void Game::EndGame() {
   for (int i = 0; i < displayHearts_.size(); i++) {
     displayHearts_[i].SetIsActive(false);
   }
-  HandleHighScores();
+  HandleHearts();
+  // HandleHighScores();
 }
 void Game::HandleHighScores() {
   std::ofstream highScoreFile("high_score.txt");
